@@ -8,6 +8,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // orderedNames: [],
+      orderedNames: ['x', 'y', 'z'],
       // orderedChoices: [],
       orderedChoices: ['a'],
       // name_choices: {},
@@ -30,8 +32,10 @@ class App extends Component {
 
   updateName(cellID, newValue) {
     var name_choices = this.state.name_choices
+    var orderedNames = this.state.orderedNames
     name_choices = renameKey(name_choices, cellID, newValue)
-    this.setState({ name_choices: name_choices })
+    orderedNames[orderedNames.indexOf(cellID)] = newValue
+    this.setState({ name_choices: name_choices, orderedNames: orderedNames})
   }
 
   updateChoice(cellID, newValue) {
@@ -48,7 +52,7 @@ class App extends Component {
   updateRank(cellID, newValue) {
     var name_choices = this.state.name_choices
     const [name, choice] = cellID.split('&')
-    name_choices[name][choice] = newValue
+    name_choices[name][choice] = parseInt(newValue)
     this.setState({ name_choices: name_choices })
   }
 
@@ -61,7 +65,7 @@ class App extends Component {
           orderedChoices={this.state.orderedChoices}
           handleCellChange={this.handleCellChange}
         />
-        {Object.keys(this.state.name_choices).map(name =>
+      {this.state.orderedNames.map(name =>
           <Row
             key={`row-${name}`}
             name={name}
