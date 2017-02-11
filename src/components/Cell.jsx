@@ -5,10 +5,10 @@ class Cell extends Component {
     return (
       <input
         type="text"
-        value={this.props.cellContents}
-        onChange={this.handleCellChange}
+        defaultValue={this.props.cellContents}
+        onBlur={(e) => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
       />
-    );
+    )
   }
 }
 
@@ -17,6 +17,7 @@ Cell.defaultProps = {
 };
 
 Cell.propTypes = {
+  cellID: React.PropTypes.string.isRequired,
   cellContents: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number,

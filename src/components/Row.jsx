@@ -3,19 +3,22 @@ import Cell from './Cell.jsx';
 
 class Row extends Component {
   render() {
+    const cellType = this.props.rowData ? 'rank' : 'choice'
     return (
       <div className='row'>
         <Cell
-          key={`name-${this.props.name}`}
+          key={`${this.props.name}`}
+          cellID={`${this.props.name}`}
           cellContents={this.props.name}
           cellType='name'
           handleCellChange={this.props.handleCellChange}
           />
         {this.props.orderedChoices.map(choice =>
           <Cell
-            key={`rank-${this.props.name}&${this.props.choice}`}
+            key={`${this.props.name}&${choice}`}
+            cellID={`${this.props.name}&${choice}`}
             cellContents={this.props.rowData ? this.props.rowData[choice]: choice}
-            cellType='rank'
+            cellType={cellType}
             handleCellChange={this.props.handleCellChange}
           />
         )}
