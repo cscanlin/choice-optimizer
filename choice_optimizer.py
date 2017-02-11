@@ -17,7 +17,7 @@ def data_from_csv(file_name):
         'people_choices': {row['user']: {k: v for k, v in row.items() if k != 'user'} for row in reader}
     }
 
-def optimize_choice_data(data):
+def format_data(data):
     objective = OrderedDict()
     variables = set(data['people_choices'].keys()) | set(next(iter(data['people_choices'].values())).keys())
     constraints = defaultdict(list)
@@ -26,11 +26,14 @@ def optimize_choice_data(data):
             objective[(name, choice)] = -int(rank)
             for variable in variables:
                 constraints[variable] += [1 if variable in [name, choice] else 0]
+    return objective, constraints
 
+def optimize_choice_data(data):
+    objective, constraints = format_data(data)
     ordered_variables, equations = zip(*constraints.items())
     constraint_bounds = data.get('constraint_bounds', {})
     results = linprog(
-        list(objective.values()),
+        c=list(objective.values()),
         A_ub=equations,
         b_ub=[constraint_bounds.get(variable, 1) for variable in ordered_variables],
         options={"disp": True}
