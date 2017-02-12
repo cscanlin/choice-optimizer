@@ -12,7 +12,8 @@ class Row extends Component {
           cellContents={this.props.name}
           cellType='name'
           handleCellChange={this.props.handleCellChange}
-          />
+          isImmutable={this.props.name === 'choices'}
+        />
         {this.props.orderedChoices.map(choice =>
           <Cell
             key={`${this.props.name}&${choice}`}

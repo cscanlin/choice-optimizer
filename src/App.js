@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Row from './components/Row.jsx';
+import Button from './components/Button.jsx';
 import {renameKey} from './utils.js'
 
 class App extends Component {
@@ -19,6 +20,33 @@ class App extends Component {
     this.updateName = this.updateName.bind(this)
     this.updateChoice = this.updateChoice.bind(this)
     this.updateRank = this.updateRank.bind(this)
+    this.addName = this.addName.bind(this)
+    this.addChoice = this.addChoice.bind(this)
+  }
+
+  addName() {
+    var name_choices = this.state.name_choices
+    const newName = `name-${this.state.orderedNames.length+1}`
+    name_choices[newName] = this.state.orderedChoices.reduce((result, item) => {
+      result[item] = 0
+      return result
+    }, {})
+    this.setState({
+        orderedNames: this.state.orderedNames.concat([newName]),
+        name_choices: name_choices,
+    })
+  }
+
+  addChoice() {
+    var name_choices = this.state.name_choices
+    const newChoice = `choice-${this.state.orderedChoices.length+1}`
+    Object.keys(name_choices).forEach(name =>
+      name_choices[name][newChoice] = 0
+    )
+    this.setState({
+      orderedChoices: this.state.orderedChoices.concat([newChoice]),
+      name_choices: name_choices,
+    })
   }
 
   handleCellChange(e, cellType, cellID) {
@@ -52,7 +80,7 @@ class App extends Component {
   updateRank(cellID, newValue) {
     var name_choices = this.state.name_choices
     const [name, choice] = cellID.split('&')
-    name_choices[name][choice] = parseInt(newValue)
+    name_choices[name][choice] = parseInt(newValue, 10)
     this.setState({ name_choices: name_choices })
   }
 
@@ -65,7 +93,13 @@ class App extends Component {
           orderedChoices={this.state.orderedChoices}
           handleCellChange={this.handleCellChange}
         />
-      {this.state.orderedNames.map(name =>
+        <Button
+          type='button'
+          value='Add Choice'
+          className='btn-primary add-choice'
+          onClick={this.addChoice}
+        />
+        {this.state.orderedNames.map(name =>
           <Row
             key={`row-${name}`}
             name={name}
@@ -74,6 +108,12 @@ class App extends Component {
             handleCellChange={this.handleCellChange}
           />
         )}
+        <Button
+          type='button'
+          value='Add Name'
+          className='btn-primary add-name'
+          onClick={this.addName}
+        />
       </div>
     );
   }

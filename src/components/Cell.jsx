@@ -3,13 +3,19 @@ import React, { Component } from 'react';
 class Cell extends Component {
   render() {
     const inputType = this.props.cellType === 'rank' ? 'number' : 'text'
-    return (
-      <input
-        type={inputType}
-        defaultValue={this.props.cellContents}
-        onBlur={(e) => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
-      />
-    )
+    if (this.props.isImmutable) {
+      return (
+        <span>{this.props.cellContents}</span>
+      )
+    } else {
+      return (
+        <input
+          type={inputType}
+          defaultValue={this.props.cellContents}
+          onBlur={(e) => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
+        />
+      )
+    }
   }
 }
 
