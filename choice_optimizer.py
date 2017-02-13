@@ -23,12 +23,14 @@ def format_data(data):
 def optimize_choice_data(data):
     objective, constraints = format_data(data)
     ordered_variables, equations = zip(*constraints.items())
-    constraint_bounds = data.get('constraint_bounds', {})
+    constraint_bounds = data.get('constraintBounds', {})
+    variable_bounds = [(0, 1) for _ in objective] if data.get('noRepeatChoices', None) else None
     results = linprog(
         c=list(objective.values()),
         A_ub=equations,
         b_ub=[constraint_bounds.get(variable, 1) for variable in ordered_variables],
-        options={"disp": True}
+        bounds=variable_bounds,
+        options={"disp": True},
     )
     formatted_result = defaultdict(dict)
     for (name, choice), score in zip(objective.keys(), results.x):

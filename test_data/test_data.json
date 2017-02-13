@@ -1,5 +1,5 @@
 {
-  "people_choices": {
+  "choiceRanks": {
     "w": {
       "a": 3,
       "b": 6,
@@ -21,7 +21,7 @@
       "c": 3
     }
   },
-  "constraint_bounds": {
+  "constraintBounds": {
     "a": 3,
     "b": 3,
     "c": 3,

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+
 import './App.css'
+
+import defaultData from './defaultData'
 
 import Row from './components/Row'
 import Button from './components/Button'
-import defaultData from './defaultData'
+import Options from './components/Options'
 import { renameKey } from './utils'
 
 class App extends Component {
@@ -19,12 +22,14 @@ class App extends Component {
     this.getScores = this.getScores.bind(this)
     this.updateMaxPerChoice = this.updateMaxPerChoice.bind(this)
     this.updateChoicesPerName = this.updateChoicesPerName.bind(this)
+    this.updateNoRepeatChoices = this.updateNoRepeatChoices.bind(this)
   }
 
   getScores() {
     const formattedData = {
       choiceRanks: this.state.choiceRanks,
-      constraint_bounds: Object.assign({}, this.state.maxPerChoice, this.state.choicesPerName),
+      constraintBounds: Object.assign({}, this.state.maxPerChoice, this.state.choicesPerName),
+      noRepeatChoices: this.state.noRepeatChoices,
     }
     fetch('/optimize_choices', {
       method: 'POST',
@@ -120,11 +125,15 @@ class App extends Component {
     this.setState({ choicesPerName })
   }
 
+  updateNoRepeatChoices(e) {
+    this.setState({ noRepeatChoices: e.target.checked })
+  }
+
   render() {
     return (
       <div className='App'>
         <table className='data-grid'>
-          <thead style={{ borderCollapse: 'separate' }}>
+          <thead>
             <Row
               key='choice-row'
               rowID='choice-row'
@@ -150,7 +159,7 @@ class App extends Component {
               />
             )}
           </tbody>
-          <tfoot style={{ borderCollapse: 'separate' }}>
+          <tfoot>
             <Row
               key='maxPerChoice-row'
               rowID='maxPerChoice-row'
@@ -179,6 +188,10 @@ class App extends Component {
           value='Add Name'
           className='btn-primary add-name'
           onClick={this.addName}
+        />
+        <Options
+          noRepeatChoices={this.state.noRepeatChoices}
+          updateNoRepeatChoices={this.updateNoRepeatChoices}
         />
       </div>
     )

@@ -42,6 +42,7 @@ const defaultData = {
     name_8: 1,
     name_9: 1,
   },
+  noRepeatChoices: true,
 }
 
 export default defaultData
