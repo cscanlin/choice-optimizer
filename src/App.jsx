@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 
-import Row from './components/Row.jsx';
-import Button from './components/Button.jsx';
-import {renameKey} from './utils.js'
+import Row from './components/Row'
+import Button from './components/Button'
+import defaultData from './defaultData'
+import { renameKey } from './utils'
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      // orderedNames: [],
-      orderedNames: ['x', 'y', 'z'],
-      // orderedChoices: [],
-      orderedChoices: ['a'],
-      // name_choices: {},
-      name_choices: {'x': {'a':1}, 'y': {'a':3}, 'z': {'a':2}},
-    }
+    this.state = { ...defaultData }
     this.handleCellChange = this.handleCellChange.bind(this)
     this.updateName = this.updateName.bind(this)
     this.updateChoice = this.updateChoice.bind(this)
@@ -25,71 +19,71 @@ class App extends Component {
   }
 
   addName() {
-    var name_choices = this.state.name_choices
-    const newName = `name-${this.state.orderedNames.length+1}`
-    name_choices[newName] = this.state.orderedChoices.reduce((result, item) => {
+    const nameChoices = this.state.name_choices
+    const newName = `name-${this.state.orderedNames.length + 1}`
+    nameChoices[newName] = this.state.orderedChoices.reduce((result, item) => {
       result[item] = 0
       return result
     }, {})
     this.setState({
-        orderedNames: this.state.orderedNames.concat([newName]),
-        name_choices: name_choices,
+      orderedNames: this.state.orderedNames.concat([newName]),
+      name_choices: nameChoices,
     })
   }
 
   addChoice() {
-    var name_choices = this.state.name_choices
-    const newChoice = `choice-${this.state.orderedChoices.length+1}`
-    Object.keys(name_choices).forEach(name =>
-      name_choices[name][newChoice] = 0
+    const nameChoices = this.state.name_choices
+    const newChoice = `choice-${this.state.orderedChoices.length + 1}`
+    Object.keys(nameChoices).forEach(name =>
+      nameChoices[name][newChoice] = 0
     )
     this.setState({
       orderedChoices: this.state.orderedChoices.concat([newChoice]),
-      name_choices: name_choices,
+      name_choices: nameChoices,
     })
   }
 
   handleCellChange(e, cellType, cellID) {
     const typeUpdateFunc = {
-      'name': this.updateName,
-      'choice': this.updateChoice,
-      'rank': this.updateRank,
+      name: this.updateName,
+      choice: this.updateChoice,
+      rank: this.updateRank,
     }
     typeUpdateFunc[cellType](cellID, e.target.value)
   }
 
   updateName(cellID, newValue) {
-    var name_choices = this.state.name_choices
-    var orderedNames = this.state.orderedNames
-    name_choices = renameKey(name_choices, cellID, newValue)
+    let nameChoices = this.state.name_choices
+    const orderedNames = this.state.orderedNames
+    nameChoices = renameKey(nameChoices, cellID, newValue)
     orderedNames[orderedNames.indexOf(cellID)] = newValue
-    this.setState({ name_choices: name_choices, orderedNames: orderedNames})
+    this.setState({ name_choices: nameChoices, orderedNames })
   }
 
   updateChoice(cellID, newValue) {
     const choice = cellID.split('&')[1]
-    var name_choices = this.state.name_choices
-    var orderedChoices = this.state.orderedChoices
-    Object.keys(name_choices).forEach(name =>
-      name_choices[name] = renameKey(name_choices[name], choice, newValue)
+    const nameChoices = this.state.name_choices
+    const orderedChoices = this.state.orderedChoices
+    Object.keys(nameChoices).forEach(name =>
+      nameChoices[name] = renameKey(nameChoices[name], choice, newValue)
     )
     orderedChoices[orderedChoices.indexOf(choice)] = newValue
-    this.setState({ name_choices: name_choices, orderedChoices: orderedChoices})
+    this.setState({ name_choices: nameChoices, orderedChoices })
   }
 
   updateRank(cellID, newValue) {
-    var name_choices = this.state.name_choices
+    const nameChoices = this.state.name_choices
     const [name, choice] = cellID.split('&')
-    name_choices[name][choice] = parseInt(newValue, 10)
-    this.setState({ name_choices: name_choices })
+    nameChoices[name][choice] = parseInt(newValue)
+    this.setState({ name_choices: nameChoices })
   }
 
   render() {
     return (
-      <div className="App">
+      <div className='App'>
         <Row
-          key={`choice-row`}
-          name={'choices'}
+          key='choice-row'
+          name='choices'
           orderedChoices={this.state.orderedChoices}
           handleCellChange={this.handleCellChange}
         />
@@ -115,8 +109,8 @@ class App extends Component {
           onClick={this.addName}
         />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

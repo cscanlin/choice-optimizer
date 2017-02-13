@@ -1,27 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-class Cell extends Component {
-  render() {
-    const inputType = this.props.cellType === 'rank' ? 'number' : 'text'
-    if (this.props.isImmutable) {
-      return (
-        <span>{this.props.cellContents}</span>
-      )
-    } else {
-      return (
-        <input
-          type={inputType}
-          defaultValue={this.props.cellContents}
-          onBlur={(e) => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
-        />
-      )
-    }
+function Cell(props) {
+  const inputType = props.cellType === 'rank' ? 'number' : 'text'
+  if (props.isImmutable) {
+    return (
+      <span>{props.cellContents}</span>
+    )
   }
+  return (
+    <input
+      type={inputType}
+      defaultValue={props.cellContents}
+      onBlur={e => props.handleCellChange(e, props.cellType, props.cellID)}
+    />
+  )
 }
 
 Cell.defaultProps = {
   isImmutable: false,
-};
+}
 
 Cell.propTypes = {
   cellID: React.PropTypes.string.isRequired,
@@ -34,4 +31,4 @@ Cell.propTypes = {
   handleCellChange: React.PropTypes.func.isRequired,
 }
 
-export default Cell;
+export default Cell

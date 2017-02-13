@@ -1,38 +1,36 @@
-import React, { Component } from 'react';
-import Cell from './Cell.jsx';
+import React from 'react'
+import Cell from './Cell'
 
-class Row extends Component {
-  render() {
-    const cellType = this.props.rowData ? 'rank' : 'choice'
-    return (
-      <div className='row'>
+function Row(props) {
+  const cellType = props.rowData ? 'rank' : 'choice'
+  return (
+    <div className='row'>
+      <Cell
+        key={`${props.name}`}
+        cellID={`${props.name}`}
+        cellContents={props.name}
+        cellType='name'
+        handleCellChange={props.handleCellChange}
+        isImmutable={props.name === 'choices'}
+      />
+      {props.orderedChoices.map(choice =>
         <Cell
-          key={`${this.props.name}`}
-          cellID={`${this.props.name}`}
-          cellContents={this.props.name}
-          cellType='name'
-          handleCellChange={this.props.handleCellChange}
-          isImmutable={this.props.name === 'choices'}
+          key={`${props.name}&${choice}`}
+          cellID={`${props.name}&${choice}`}
+          cellContents={props.rowData ? props.rowData[choice] : choice}
+          cellType={cellType}
+          handleCellChange={props.handleCellChange}
         />
-        {this.props.orderedChoices.map(choice =>
-          <Cell
-            key={`${this.props.name}&${choice}`}
-            cellID={`${this.props.name}&${choice}`}
-            cellContents={this.props.rowData ? this.props.rowData[choice]: choice}
-            cellType={cellType}
-            handleCellChange={this.props.handleCellChange}
-          />
-        )}
-      </div>
-    );
-  }
+      )}
+    </div>
+  )
 }
 
 Row.propTypes = {
   name: React.PropTypes.string.isRequired,
-  orderedChoices: React.PropTypes.array.isRequired,
-  rowData: React.PropTypes.object,
-  handleCellChange: React.PropTypes.func.isRequired
+  orderedChoices: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  rowData: React.PropTypes.objectOf(React.PropTypes.number),
+  handleCellChange: React.PropTypes.func.isRequired,
 }
 
-export default Row;
+export default Row
