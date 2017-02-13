@@ -123,41 +123,50 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <Row
-          key='choice-row'
-          rowID='choice-row'
-          name='choices'
-          orderedChoices={this.state.orderedChoices}
-          rowData={this.state.orderedChoices.reduce((result, item) => {
-            result[item] = item; return result
-          }, {})}
-          handleCellChange={this.handleCellChange}
-        />
+        <table className='data-grid'>
+          <thead style={{ borderCollapse: 'separate' }}>
+            <Row
+              key='choice-row'
+              rowID='choice-row'
+              name='choices'
+              orderedChoices={this.state.orderedChoices}
+              rowData={this.state.orderedChoices.reduce((result, item) => {
+                result[item] = item; return result
+              }, {})}
+              handleCellChange={this.handleCellChange}
+            />
+          </thead>
+          <tbody>
+            {this.state.orderedNames.map(name =>
+              <Row
+                key={`row-${name}`}
+                rowID={`row-${name} data-row`}
+                name={name}
+                orderedChoices={this.state.orderedChoices}
+                rowData={this.state.choiceRanks[name]}
+                rowScores={this.state.scores[name]}
+                choicesPerName={this.state.choicesPerName}
+                handleCellChange={this.handleCellChange}
+              />
+            )}
+          </tbody>
+          <tfoot style={{ borderCollapse: 'separate' }}>
+            <Row
+              key='maxPerChoice-row'
+              rowID='maxPerChoice-row'
+              name='maxPerChoice'
+              orderedChoices={this.state.orderedChoices}
+              rowData={this.state.maxPerChoice}
+              handleCellChange={this.handleCellChange}
+            />
+          </tfoot>
+        </table>
+
         <Button
           type='button'
           value='Add Choice'
           className='btn-primary add-choice'
           onClick={this.addChoice}
-        />
-        {this.state.orderedNames.map(name =>
-          <Row
-            key={`row-${name}`}
-            rowID={`row-${name} data-row`}
-            name={name}
-            orderedChoices={this.state.orderedChoices}
-            rowData={this.state.choiceRanks[name]}
-            rowScores={this.state.scores[name]}
-            choicesPerName={this.state.choicesPerName}
-            handleCellChange={this.handleCellChange}
-          />
-        )}
-        <Row
-          key='maxPerChoice-row'
-          rowID='maxPerChoice-row'
-          name='maxPerChoice'
-          orderedChoices={this.state.orderedChoices}
-          rowData={this.state.maxPerChoice}
-          handleCellChange={this.handleCellChange}
         />
         <Button
           type='button'

@@ -12,21 +12,26 @@ class Cell extends Component {
   cellStyle() {
     return {
       borderColor: this.borderColor(),
+      // borderWidth: this.props.score + 1,
     }
+  }
+
+  immutableCell() {
+    return (
+      <td className={`cell immutable-cell ${this.props.cellType}-cell`}>
+        <span className='cell-contents immutable-cell-contents'>{this.props.cellContents}</span>
+      </td>
+    )
   }
 
   render() {
     const numericTypes = ['maxPerChoice', 'rank', 'choicesPerName']
     const inputType = numericTypes.includes(this.props.cellType) ? 'number' : 'text'
     if (this.props.isImmutable) {
-      return (
-        <div className={`cell immutable-cell ${this.props.cellType}-cell`}>
-          <span className='cell-contents immutable-cell-contents'>{this.props.cellContents}</span>
-        </div>
-      )
+      return this.immutableCell()
     }
     return (
-      <div className={`cell input-cell ${this.props.cellType}-cell`}>
+      <td className={`cell input-cell ${this.props.cellType}-cell`}>
         <input
           className='cell-contents input-cell-contents'
           style={this.cellStyle()}
@@ -34,7 +39,7 @@ class Cell extends Component {
           defaultValue={this.props.cellContents}
           onBlur={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
         />
-      </div>
+      </td>
     )
   }
 }

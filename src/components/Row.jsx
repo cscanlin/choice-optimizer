@@ -3,7 +3,7 @@ import Cell from './Cell'
 
 function Row(props) {
   return (
-    <div className={`row ${props.rowID}`}>
+    <tr className={`row ${props.rowID}`}>
       <Cell
         key={`${props.name}`}
         cellID={`${props.name}`}
@@ -22,6 +22,7 @@ function Row(props) {
           handleCellChange={props.handleCellChange}
         />
       )}
+      <td className='spacing-cell' />
       {props.name !== 'maxPerChoice' ?
         <Cell
           key={`${props.name}&choicesPerName`}
@@ -33,7 +34,7 @@ function Row(props) {
         />
       : null
       }
-    </div>
+    </tr>
   )
 }
 

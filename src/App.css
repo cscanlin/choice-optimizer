@@ -1,55 +1,54 @@
 .App {
   padding: 10px;
+}
+
+.data-grid {
+  display: inline-block;
   border-collapse: collapse;
 }
 
+tbody:before,
+tbody:after {
+  line-height: 1em;
+  content: "\200C";
+  display:block;
+}
+
 .cell {
-  display: inline-block;
   width: 130px;
   height: 25px;
+  padding: 0px;
+}
+
+.input-cell {
+  border-style: solid;
+  border-width: 1px;
 }
 
 .cell-contents {
   height: 100%;
-  width: 123px;
-  border-width: 1px;
   padding-left: 5px;
 }
 
-.input-cell-contents {
-  border-style: solid;
-}
-
-.choice-row {
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-.data-row {
+.spacing-cell {
+  width: 16px;
 }
 
 .add-choice {
   display: inline-block;
+  vertical-align: top;
   margin-left: 15px;
 }
-
-/*.immutable-cell-contents {
-  padding-left: 5px;
-}*/
 
 .choicesPerName-cell {
-  margin-left: 15px;
-}
-
-.maxPerChoice-row {
-  display: inline-block;
-  margin: 10px 0px;
+  margin-left: 10px;
 }
 
 .run-optimizer {
-  margin-left: 15px;
+  margin-left: -200px;
 }
 
 .add-name {
   display: block;
+  margin-top: 5px;
 }
