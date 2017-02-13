@@ -33,26 +33,26 @@ class App extends Component {
 
   addName() {
     const choiceRanks = this.state.choiceRanks
-    const newName = `name-${this.state.orderedNames.length + 1}`
+    const newName = `name_${this.state.orderedNames.length + 1}`
     choiceRanks[newName] = this.state.orderedChoices.reduce((result, item) => {
       result[item] = 0
       return result
     }, {})
     this.setState({
       orderedNames: this.state.orderedNames.concat([newName]),
-      choiceRanks: choiceRanks,
+      choiceRanks,
     })
   }
 
   addChoice() {
     const choiceRanks = this.state.choiceRanks
-    const newChoice = `choice-${this.state.orderedChoices.length + 1}`
+    const newChoice = `choice_${String.fromCharCode(this.state.orderedChoices.length + 97)}`
     Object.keys(choiceRanks).forEach(name =>
       choiceRanks[name][newChoice] = 0
     )
     this.setState({
       orderedChoices: this.state.orderedChoices.concat([newChoice]),
-      choiceRanks: choiceRanks,
+      choiceRanks,
     })
   }
 
@@ -70,7 +70,7 @@ class App extends Component {
     const orderedNames = this.state.orderedNames
     choiceRanks = renameKey(choiceRanks, cellID, newValue)
     orderedNames[orderedNames.indexOf(cellID)] = newValue
-    this.setState({ choiceRanks: choiceRanks, orderedNames })
+    this.setState({ choiceRanks, orderedNames })
   }
 
   updateChoice(cellID, newValue) {
@@ -81,14 +81,14 @@ class App extends Component {
       choiceRanks[name] = renameKey(choiceRanks[name], choice, newValue)
     )
     orderedChoices[orderedChoices.indexOf(choice)] = newValue
-    this.setState({ choiceRanks: choiceRanks, orderedChoices })
+    this.setState({ choiceRanks, orderedChoices })
   }
 
   updateRank(cellID, newValue) {
     const choiceRanks = this.state.choiceRanks
     const [name, choice] = cellID.split('&')
     choiceRanks[name][choice] = parseInt(newValue)
-    this.setState({ choiceRanks: choiceRanks })
+    this.setState({ choiceRanks })
   }
 
   render() {

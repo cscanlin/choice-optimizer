@@ -2,7 +2,7 @@ import React from 'react'
 import Cell from './Cell'
 
 function Row(props) {
-  const cellType = props.rowData ? 'rank' : 'choice'
+  const cellType = Object.keys(props.rowData).length > 0 ? 'rank' : 'choice'
   return (
     <div className='row'>
       <Cell
@@ -17,7 +17,7 @@ function Row(props) {
         <Cell
           key={`${props.name}&${choice}`}
           cellID={`${props.name}&${choice}`}
-          cellContents={props.rowData ? props.rowData[choice] : choice}
+          cellContents={cellType === 'rank' ? props.rowData[choice] : choice}
           cellType={cellType}
           score={props.rowScores[choice]}
           handleCellChange={props.handleCellChange}
@@ -28,6 +28,7 @@ function Row(props) {
 }
 
 Row.defaultProps = {
+  rowData: {},
   rowScores: {},
 }
 
