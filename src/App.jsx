@@ -142,7 +142,7 @@ class App extends Component {
         {this.state.orderedNames.map(name =>
           <Row
             key={`row-${name}`}
-            rowID={`row-${name}`}
+            rowID={`row-${name} data-row`}
             name={name}
             orderedChoices={this.state.orderedChoices}
             rowData={this.state.choiceRanks[name]}

@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 
 class Cell extends Component {
   borderColor() {
-    const scoreColors = {
-      1: '#00FF00',
-    }
-    return scoreColors[this.props.score]
+    return this.props.score > 0 ? '#00FF00' : null
+    // const scoreColors = {
+    //   1: '#00FF00',
+    // }
+    // return scoreColors[this.props.score]
   }
 
   cellStyle() {

@@ -1,11 +1,23 @@
 .App {
   padding: 10px;
-  /*text-align: center;*/
+  border-collapse: collapse;
 }
 
 .cell {
   display: inline-block;
   width: 130px;
+  height: 25px;
+}
+
+.cell-contents {
+  height: 100%;
+  width: 123px;
+  border-width: 1px;
+  padding-left: 5px;
+}
+
+.input-cell-contents {
+  border-style: solid;
 }
 
 .choice-row {
@@ -13,9 +25,12 @@
   margin-bottom: 10px;
 }
 
+.data-row {
+}
+
 .add-choice {
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 /*.immutable-cell-contents {
@@ -23,7 +38,7 @@
 }*/
 
 .choicesPerName-cell {
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .maxPerChoice-row {
@@ -32,7 +47,7 @@
 }
 
 .run-optimizer {
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .add-name {
