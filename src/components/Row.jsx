@@ -10,7 +10,7 @@ function Row(props) {
         cellContents={props.name}
         cellType='name'
         handleCellChange={props.handleCellChange}
-        isImmutable={props.name === 'choices'}
+        isImmutable={['choices', 'maxPerChoice'].includes(props.name)}
       />
       {props.orderedChoices.map(choice =>
         <Cell
@@ -22,6 +22,17 @@ function Row(props) {
           handleCellChange={props.handleCellChange}
         />
       )}
+      {props.name !== 'maxPerChoice' ?
+        <Cell
+          key={`${props.name}&choicesPerName`}
+          cellID={`${props.name}&choicesPerName`}
+          cellContents={props.name === 'choices' ? 'choicesPerName' : props.choicesPerName[props.name]}
+          cellType='choicesPerName'
+          handleCellChange={props.handleCellChange}
+          isImmutable={props.name === 'choices'}
+        />
+      : null
+      }
     </div>
   )
 }
@@ -29,6 +40,7 @@ function Row(props) {
 Row.defaultProps = {
   rowData: {},
   rowScores: {},
+  choicesPerName: {},
 }
 
 Row.propTypes = {
@@ -41,6 +53,7 @@ Row.propTypes = {
     ])
   ).isRequired,
   rowScores: React.PropTypes.objectOf(React.PropTypes.number),
+  choicesPerName: React.PropTypes.objectOf(React.PropTypes.number),
   handleCellChange: React.PropTypes.func.isRequired,
 }
 

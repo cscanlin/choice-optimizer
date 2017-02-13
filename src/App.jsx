@@ -18,12 +18,13 @@ class App extends Component {
     this.addChoice = this.addChoice.bind(this)
     this.getScores = this.getScores.bind(this)
     this.updateMaxPerChoice = this.updateMaxPerChoice.bind(this)
+    this.updateChoicesPerName = this.updateChoicesPerName.bind(this)
   }
 
   getScores() {
     const formattedData = {
       choiceRanks: this.state.choiceRanks,
-      constraint_bounds: this.state.maxPerChoice,
+      constraint_bounds: Object.assign({}, this.state.maxPerChoice, this.state.choicesPerName),
     }
     fetch('/optimize_choices', {
       method: 'POST',
@@ -37,26 +38,32 @@ class App extends Component {
 
   addName() {
     const choiceRanks = this.state.choiceRanks
+    const choicesPerName = this.state.choicesPerName
     const newName = `name_${this.state.orderedNames.length + 1}`
     choiceRanks[newName] = this.state.orderedChoices.reduce((result, item) => {
       result[item] = 0
       return result
     }, {})
+    choicesPerName[newName] = 1
     this.setState({
       orderedNames: this.state.orderedNames.concat([newName]),
       choiceRanks,
+      choicesPerName,
     })
   }
 
   addChoice() {
     const choiceRanks = this.state.choiceRanks
+    const maxPerChoice = this.state.maxPerChoice
     const newChoice = `choice_${String.fromCharCode(this.state.orderedChoices.length + 97)}`
     Object.keys(choiceRanks).forEach(name =>
       choiceRanks[name][newChoice] = 0
     )
+    maxPerChoice[newChoice] = 1
     this.setState({
       orderedChoices: this.state.orderedChoices.concat([newChoice]),
       choiceRanks,
+      maxPerChoice,
     })
   }
 
@@ -66,6 +73,7 @@ class App extends Component {
       choices: this.updateChoice,
       rank: this.updateRank,
       maxPerChoice: this.updateMaxPerChoice,
+      choicesPerName: this.updateChoicesPerName,
     }
     typeUpdateFunc[cellType](cellID, e.target.value)
   }
@@ -91,6 +99,13 @@ class App extends Component {
     this.setState({ choiceRanks, orderedChoices, maxPerChoice})
   }
 
+  updateRank(cellID, newValue) {
+    const choiceRanks = this.state.choiceRanks
+    const [name, choice] = cellID.split('&')
+    choiceRanks[name][choice] = parseInt(newValue)
+    this.setState({ choiceRanks })
+  }
+
   updateMaxPerChoice(cellID, newValue) {
     const choice = cellID.split('&')[1]
     const maxPerChoice = this.state.maxPerChoice
@@ -98,11 +113,11 @@ class App extends Component {
     this.setState({ maxPerChoice })
   }
 
-  updateRank(cellID, newValue) {
-    const choiceRanks = this.state.choiceRanks
-    const [name, choice] = cellID.split('&')
-    choiceRanks[name][choice] = parseInt(newValue)
-    this.setState({ choiceRanks })
+  updateChoicesPerName(cellID, newValue) {
+    const name = cellID.split('&')[0]
+    const choicesPerName = this.state.choicesPerName
+    choicesPerName[name] = parseInt(newValue)
+    this.setState({ choicesPerName })
   }
 
   render() {
@@ -130,6 +145,7 @@ class App extends Component {
             orderedChoices={this.state.orderedChoices}
             rowData={this.state.choiceRanks[name]}
             rowScores={this.state.scores[name]}
+            choicesPerName={this.state.choicesPerName}
             handleCellChange={this.handleCellChange}
           />
         )}

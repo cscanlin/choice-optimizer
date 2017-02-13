@@ -31,6 +31,17 @@ const defaultData = {
     choice_c: 3,
     choice_d: 3,
   },
+  choicesPerName: {
+    name_1: 1,
+    name_2: 1,
+    name_3: 1,
+    name_4: 1,
+    name_5: 1,
+    name_6: 1,
+    name_7: 1,
+    name_8: 1,
+    name_9: 1,
+  },
 }
 
 export default defaultData
