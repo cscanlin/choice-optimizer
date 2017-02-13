@@ -15,7 +15,7 @@ class Cell extends Component {
   }
 
   render() {
-    const inputType = this.props.cellType === 'rank' ? 'number' : 'text'
+    const inputType = ['maxPerChoice', 'rank'].includes(this.props.cellType) ? 'number' : 'text'
     if (this.props.isImmutable) {
       return (
         <span>{this.props.cellContents}</span>

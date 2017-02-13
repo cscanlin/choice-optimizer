@@ -17,10 +17,14 @@ class App extends Component {
     this.addName = this.addName.bind(this)
     this.addChoice = this.addChoice.bind(this)
     this.getScores = this.getScores.bind(this)
+    this.updateMaxPerChoice = this.updateMaxPerChoice.bind(this)
   }
 
   getScores() {
-    const formattedData = { choiceRanks: this.state.choiceRanks }
+    const formattedData = {
+      choiceRanks: this.state.choiceRanks,
+      constraint_bounds: this.state.maxPerChoice,
+    }
     fetch('/optimize_choices', {
       method: 'POST',
       body: JSON.stringify(formattedData),
@@ -59,8 +63,9 @@ class App extends Component {
   handleCellChange(e, cellType, cellID) {
     const typeUpdateFunc = {
       name: this.updateName,
-      choice: this.updateChoice,
+      choices: this.updateChoice,
       rank: this.updateRank,
+      maxPerChoice: this.updateMaxPerChoice,
     }
     typeUpdateFunc[cellType](cellID, e.target.value)
   }
@@ -77,11 +82,20 @@ class App extends Component {
     const choice = cellID.split('&')[1]
     const choiceRanks = this.state.choiceRanks
     const orderedChoices = this.state.orderedChoices
+    let maxPerChoice = this.state.maxPerChoice
     Object.keys(choiceRanks).forEach(name =>
       choiceRanks[name] = renameKey(choiceRanks[name], choice, newValue)
     )
+    maxPerChoice = renameKey(maxPerChoice, choice, newValue)
     orderedChoices[orderedChoices.indexOf(choice)] = newValue
-    this.setState({ choiceRanks, orderedChoices })
+    this.setState({ choiceRanks, orderedChoices, maxPerChoice})
+  }
+
+  updateMaxPerChoice(cellID, newValue) {
+    const choice = cellID.split('&')[1]
+    const maxPerChoice = this.state.maxPerChoice
+    maxPerChoice[choice] = parseInt(newValue)
+    this.setState({ maxPerChoice })
   }
 
   updateRank(cellID, newValue) {
@@ -98,6 +112,9 @@ class App extends Component {
           key='choice-row'
           name='choices'
           orderedChoices={this.state.orderedChoices}
+          rowData={this.state.orderedChoices.reduce((result, item) => {
+            result[item] = item; return result
+          }, {})}
           handleCellChange={this.handleCellChange}
         />
         <Button
@@ -116,6 +133,13 @@ class App extends Component {
             handleCellChange={this.handleCellChange}
           />
         )}
+        <Row
+          key='maxPerChoice-row'
+          name='maxPerChoice'
+          orderedChoices={this.state.orderedChoices}
+          rowData={this.state.maxPerChoice}
+          handleCellChange={this.handleCellChange}
+        />
         <Button
           type='button'
           value='Add Name'

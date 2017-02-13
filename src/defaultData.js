@@ -25,6 +25,12 @@ const defaultData = {
     name_9: { choice_a: 3, choice_b: 2, choice_c: 1, choice_d: 5 },
   },
   scores: {},
+  maxPerChoice: {
+    choice_a: 3,
+    choice_b: 3,
+    choice_c: 3,
+    choice_d: 3,
+  },
 }
 
 export default defaultData
