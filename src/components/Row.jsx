@@ -19,6 +19,7 @@ function Row(props) {
           cellID={`${props.name}&${choice}`}
           cellContents={props.rowData ? props.rowData[choice] : choice}
           cellType={cellType}
+          score={props.rowScores[choice]}
           handleCellChange={props.handleCellChange}
         />
       )}
@@ -26,10 +27,15 @@ function Row(props) {
   )
 }
 
+Row.defaultProps = {
+  rowScores: {},
+}
+
 Row.propTypes = {
   name: React.PropTypes.string.isRequired,
   orderedChoices: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   rowData: React.PropTypes.objectOf(React.PropTypes.number),
+  rowScores: React.PropTypes.objectOf(React.PropTypes.number),
   handleCellChange: React.PropTypes.func.isRequired,
 }
 

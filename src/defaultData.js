@@ -13,7 +13,7 @@ const defaultData = {
   orderedChoices: [
     'choice_a', 'choice_b', 'choice_c', 'choice_d',
   ],
-  name_choices: {
+  choiceRanks: {
     name_1: { choice_a: 5, choice_b: 1, choice_c: 2, choice_d: 2 },
     name_2: { choice_a: 2, choice_b: 5, choice_c: 4, choice_d: 3 },
     name_3: { choice_a: 3, choice_b: 2, choice_c: 5, choice_d: 3 },
@@ -24,6 +24,7 @@ const defaultData = {
     name_8: { choice_a: 5, choice_b: 4, choice_c: 2, choice_d: 1 },
     name_9: { choice_a: 3, choice_b: 2, choice_c: 1, choice_d: 5 },
   },
+  scores: {},
 }
 
 export default defaultData

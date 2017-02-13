@@ -16,30 +16,43 @@ class App extends Component {
     this.updateRank = this.updateRank.bind(this)
     this.addName = this.addName.bind(this)
     this.addChoice = this.addChoice.bind(this)
+    this.getScores = this.getScores.bind(this)
+  }
+
+  getScores() {
+    const formattedData = { choiceRanks: this.state.choiceRanks }
+    fetch('/optimize_choices', {
+      method: 'POST',
+      body: JSON.stringify(formattedData),
+    }).then(result =>
+      result.json()
+    ).then((scores) => {
+      this.setState({ scores })
+    })
   }
 
   addName() {
-    const nameChoices = this.state.name_choices
+    const choiceRanks = this.state.choiceRanks
     const newName = `name-${this.state.orderedNames.length + 1}`
-    nameChoices[newName] = this.state.orderedChoices.reduce((result, item) => {
+    choiceRanks[newName] = this.state.orderedChoices.reduce((result, item) => {
       result[item] = 0
       return result
     }, {})
     this.setState({
       orderedNames: this.state.orderedNames.concat([newName]),
-      name_choices: nameChoices,
+      choiceRanks: choiceRanks,
     })
   }
 
   addChoice() {
-    const nameChoices = this.state.name_choices
+    const choiceRanks = this.state.choiceRanks
     const newChoice = `choice-${this.state.orderedChoices.length + 1}`
-    Object.keys(nameChoices).forEach(name =>
-      nameChoices[name][newChoice] = 0
+    Object.keys(choiceRanks).forEach(name =>
+      choiceRanks[name][newChoice] = 0
     )
     this.setState({
       orderedChoices: this.state.orderedChoices.concat([newChoice]),
-      name_choices: nameChoices,
+      choiceRanks: choiceRanks,
     })
   }
 
@@ -53,29 +66,29 @@ class App extends Component {
   }
 
   updateName(cellID, newValue) {
-    let nameChoices = this.state.name_choices
+    let choiceRanks = this.state.choiceRanks
     const orderedNames = this.state.orderedNames
-    nameChoices = renameKey(nameChoices, cellID, newValue)
+    choiceRanks = renameKey(choiceRanks, cellID, newValue)
     orderedNames[orderedNames.indexOf(cellID)] = newValue
-    this.setState({ name_choices: nameChoices, orderedNames })
+    this.setState({ choiceRanks: choiceRanks, orderedNames })
   }
 
   updateChoice(cellID, newValue) {
     const choice = cellID.split('&')[1]
-    const nameChoices = this.state.name_choices
+    const choiceRanks = this.state.choiceRanks
     const orderedChoices = this.state.orderedChoices
-    Object.keys(nameChoices).forEach(name =>
-      nameChoices[name] = renameKey(nameChoices[name], choice, newValue)
+    Object.keys(choiceRanks).forEach(name =>
+      choiceRanks[name] = renameKey(choiceRanks[name], choice, newValue)
     )
     orderedChoices[orderedChoices.indexOf(choice)] = newValue
-    this.setState({ name_choices: nameChoices, orderedChoices })
+    this.setState({ choiceRanks: choiceRanks, orderedChoices })
   }
 
   updateRank(cellID, newValue) {
-    const nameChoices = this.state.name_choices
+    const choiceRanks = this.state.choiceRanks
     const [name, choice] = cellID.split('&')
-    nameChoices[name][choice] = parseInt(newValue)
-    this.setState({ name_choices: nameChoices })
+    choiceRanks[name][choice] = parseInt(newValue)
+    this.setState({ choiceRanks: choiceRanks })
   }
 
   render() {
@@ -98,7 +111,8 @@ class App extends Component {
             key={`row-${name}`}
             name={name}
             orderedChoices={this.state.orderedChoices}
-            rowData={this.state.name_choices[name]}
+            rowData={this.state.choiceRanks[name]}
+            rowScores={this.state.scores[name]}
             handleCellChange={this.handleCellChange}
           />
         )}
@@ -107,6 +121,12 @@ class App extends Component {
           value='Add Name'
           className='btn-primary add-name'
           onClick={this.addName}
+        />
+        <Button
+          type='button'
+          value='Run Optimizer'
+          className='btn-primary run-optimizer'
+          onClick={this.getScores}
         />
       </div>
     )
