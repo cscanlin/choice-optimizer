@@ -96,7 +96,7 @@ class App extends Component {
     )
     maxPerChoice = renameKey(maxPerChoice, choice, newValue)
     orderedChoices[orderedChoices.indexOf(choice)] = newValue
-    this.setState({ choiceRanks, orderedChoices, maxPerChoice})
+    this.setState({ choiceRanks, orderedChoices, maxPerChoice })
   }
 
   updateRank(cellID, newValue) {
@@ -125,6 +125,7 @@ class App extends Component {
       <div className='App'>
         <Row
           key='choice-row'
+          rowID='choice-row'
           name='choices'
           orderedChoices={this.state.orderedChoices}
           rowData={this.state.orderedChoices.reduce((result, item) => {
@@ -141,6 +142,7 @@ class App extends Component {
         {this.state.orderedNames.map(name =>
           <Row
             key={`row-${name}`}
+            rowID={`row-${name}`}
             name={name}
             orderedChoices={this.state.orderedChoices}
             rowData={this.state.choiceRanks[name]}
@@ -151,6 +153,7 @@ class App extends Component {
         )}
         <Row
           key='maxPerChoice-row'
+          rowID='maxPerChoice-row'
           name='maxPerChoice'
           orderedChoices={this.state.orderedChoices}
           rowData={this.state.maxPerChoice}
@@ -158,15 +161,15 @@ class App extends Component {
         />
         <Button
           type='button'
-          value='Add Name'
-          className='btn-primary add-name'
-          onClick={this.addName}
-        />
-        <Button
-          type='button'
           value='Run Optimizer'
           className='btn-primary run-optimizer'
           onClick={this.getScores}
+        />
+        <Button
+          type='button'
+          value='Add Name'
+          className='btn-primary add-name'
+          onClick={this.addName}
         />
       </div>
     )

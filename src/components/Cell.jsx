@@ -19,16 +19,21 @@ class Cell extends Component {
     const inputType = numericTypes.includes(this.props.cellType) ? 'number' : 'text'
     if (this.props.isImmutable) {
       return (
-        <span>{this.props.cellContents}</span>
+        <div className={`cell immutable-cell ${this.props.cellType}-cell`}>
+          <span className='cell-contents immutable-cell-contents'>{this.props.cellContents}</span>
+        </div>
       )
     }
     return (
-      <input
-        style={this.cellStyle()}
-        type={inputType}
-        defaultValue={this.props.cellContents}
-        onBlur={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
-      />
+      <div className={`cell input-cell ${this.props.cellType}-cell`}>
+        <input
+          className='cell-contents input-cell-contents'
+          style={this.cellStyle()}
+          type={inputType}
+          defaultValue={this.props.cellContents}
+          onBlur={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
+        />
+      </div>
     )
   }
 }

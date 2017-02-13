@@ -1,24 +1,40 @@
 .App {
-  text-align: center;
+  padding: 10px;
+  /*text-align: center;*/
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.cell {
+  display: inline-block;
+  width: 130px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.choice-row {
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
-.App-intro {
-  font-size: large;
+.add-choice {
+  display: inline-block;
+  margin-left: 10px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/*.immutable-cell-contents {
+  padding-left: 5px;
+}*/
+
+.choicesPerName-cell {
+  margin-left: 10px;
+}
+
+.maxPerChoice-row {
+  display: inline-block;
+  margin: 10px 0px;
+}
+
+.run-optimizer {
+  margin-left: 10px;
+}
+
+.add-name {
+  display: block;
 }

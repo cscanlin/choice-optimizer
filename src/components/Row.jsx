@@ -3,7 +3,7 @@ import Cell from './Cell'
 
 function Row(props) {
   return (
-    <div className='row'>
+    <div className={`row ${props.rowID}`}>
       <Cell
         key={`${props.name}`}
         cellID={`${props.name}`}
@@ -45,6 +45,7 @@ Row.defaultProps = {
 
 Row.propTypes = {
   name: React.PropTypes.string.isRequired,
+  rowID: React.PropTypes.string.isRequired,
   orderedChoices: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   rowData: React.PropTypes.objectOf(
     React.PropTypes.oneOfType([
