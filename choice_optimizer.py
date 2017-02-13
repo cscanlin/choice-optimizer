@@ -11,24 +11,30 @@ def data_from_csv(file_name):
 
 def format_data(data):
     objective = OrderedDict()
-    variables = set(data['choiceRanks'].keys()) | set(next(iter(data['choiceRanks'].values())).keys())
-    constraints = defaultdict(list)
+    name_variables = data['choiceRanks'].keys()
+    choice_variables = next(iter(data['choiceRanks'].values())).keys()
+    ub_constraints, eq_constraints = defaultdict(list), defaultdict(list)
     for name, choices in data['choiceRanks'].items():
         for choice, rank in choices.items():
             objective[(name, choice)] = -int(rank)
-            for variable in variables:
-                constraints[variable] += [1 if variable in [name, choice] else 0]
-    return objective, constraints
+            for cv in choice_variables:
+                ub_constraints[cv].append(int(cv == choice))
+            for nv in name_variables:
+                eq_constraints[nv].append(int(nv == name))
+    return objective, ub_constraints, eq_constraints
 
 def optimize_choice_data(data):
-    objective, constraints = format_data(data)
-    ordered_variables, equations = zip(*constraints.items())
+    objective, ub_constraints, eq_constraints = format_data(data)
+    ordered_ub_variables, ub_equations = zip(*ub_constraints.items())
+    ordered_eq_variables, eq_equations = zip(*eq_constraints.items())
     constraint_bounds = data.get('constraintBounds', {})
     variable_bounds = [(0, 1) for _ in objective] if data.get('noRepeatChoices', None) else None
     results = linprog(
         c=list(objective.values()),
-        A_ub=equations,
-        b_ub=[constraint_bounds.get(variable, 1) for variable in ordered_variables],
+        A_ub=ub_equations,
+        b_ub=[constraint_bounds.get(variable, 1) for variable in ordered_ub_variables],
+        A_eq=eq_equations,
+        b_eq=[constraint_bounds.get(variable, 1) for variable in ordered_eq_variables],
         bounds=variable_bounds,
         options={"disp": True},
     )
