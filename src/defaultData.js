@@ -43,6 +43,7 @@ const defaultData = {
     name_9: 1,
   },
   noRepeatChoices: true,
+  isFetching: false,
 }
 
 export default defaultData

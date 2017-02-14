@@ -1,15 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import App from './App'
-import configureStore from './store/configure-store'
-import './index.css'
+import OptimizerApp from './containers/OptimizerApp'
+import configureStore from './store/configureStore'
+import './css/index.css'
+import './css/OptimizerApp.css'
 
 const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <OptimizerApp />
   </Provider>,
   document.getElementById('root')
 )

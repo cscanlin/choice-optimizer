@@ -1,8 +1,6 @@
-import { combineReducers } from 'redux'
-import people from './optimizer-reducer'
+// import { combineReducers } from 'redux'
+import optimizerReducer from './optimizerReducer'
 
-const rootReducer = combineReducers({
-  people,
-})
+const rootReducer = optimizerReducer
 
 export default rootReducer

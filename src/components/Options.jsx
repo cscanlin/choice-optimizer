@@ -10,7 +10,7 @@ function Options(props) {
           type='checkbox'
           checked={props.noRepeatChoices}
           className='checkbox choose-each-once-checkbox'
-          onChange={props.updateNoRepeatChoices}
+          onChange={e => props.updateNoRepeatChoices(e.target.checked)}
         />
       </div>
     </div>
