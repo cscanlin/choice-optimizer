@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 
 class Cell extends Component {
   borderColor() {
-    return this.props.score > 0 ? '#00FF00' : null
+    if (this.props.score > 0) {
+      return '#00FF00'
+    } else if (this.props.cellType === 'maxPerChoice' && this.props.slack === 0) {
+      return '#FF0000'
+    } else {
+      return null
+    }
     // const scoreColors = {
     //   1: '#00FF00',
     // }
@@ -47,6 +53,7 @@ class Cell extends Component {
 Cell.defaultProps = {
   isImmutable: false,
   score: 0,
+  slack: null,
 }
 
 Cell.propTypes = {
@@ -58,6 +65,7 @@ Cell.propTypes = {
   cellType: React.PropTypes.string.isRequired,
   isImmutable: React.PropTypes.bool.isRequired,
   score: React.PropTypes.number,
+  slack: React.PropTypes.number,
   handleCellChange: React.PropTypes.func.isRequired,
 }
 

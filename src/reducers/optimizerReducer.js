@@ -36,7 +36,7 @@ export default (state = defaultData, action) => {
     case types.ADD_CHOICE: {
       const choiceRanks = {}
       const newChoice = `choice_${String.fromCharCode(state.orderedChoices.length + 97)}`
-      Object.keys(state.choiceRanks).forEach(name => {
+      Object.keys(state.choiceRanks).forEach((name) => {
         choiceRanks[name] = Object.assign({ [newChoice]: 0 }, state.choiceRanks[name])
       })
       return {
@@ -51,7 +51,7 @@ export default (state = defaultData, action) => {
       const choice = action.cellID.split('&')[1]
       const choiceRanks = {}
       Object.keys(state.choiceRanks).forEach(name =>
-        choiceRanks[name] = renameKey(state.choiceRanks[name], choice, action.newValue)
+        (choiceRanks[name] = renameKey(state.choiceRanks[name], choice, action.newValue))
       )
       const orderedChoices = state.orderedChoices.slice()
       orderedChoices[orderedChoices.indexOf(choice)] = action.newValue

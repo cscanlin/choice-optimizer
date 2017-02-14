@@ -78,6 +78,7 @@ class OptimizerApp extends Component {
               orderedChoices={this.props.orderedChoices}
               rowData={this.props.maxPerChoice}
               handleCellChange={this.handleCellChange}
+              choiceSlack={this.props.choiceSlack}
             />
           </tfoot>
         </table>
@@ -98,13 +99,19 @@ class OptimizerApp extends Component {
   }
 }
 
+OptimizerApp.defaultProps = {
+  scores: {},
+  choiceSlack: {},
+}
+
 OptimizerApp.propTypes = {
   orderedNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   orderedChoices: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   choiceRanks: React.PropTypes.objectOf(
       React.PropTypes.objectOf(React.PropTypes.number)
   ).isRequired,
-  scores: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
+  scores: React.PropTypes.objectOf(React.PropTypes.number),
+  choiceSlack: React.PropTypes.objectOf(React.PropTypes.number),
   maxPerChoice: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
   choicesPerName: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
   noRepeatChoices: React.PropTypes.bool.isRequired,
@@ -117,6 +124,7 @@ function mapStateToProps(state) {
     orderedChoices: state.orderedChoices,
     choiceRanks: state.choiceRanks,
     scores: state.scores,
+    choiceSlack: state.choiceSlack,
     maxPerChoice: state.maxPerChoice,
     choicesPerName: state.choicesPerName,
     noRepeatChoices: state.noRepeatChoices,

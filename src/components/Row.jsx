@@ -19,6 +19,7 @@ function Row(props) {
           cellContents={props.rowData[choice]}
           cellType={['choices', 'maxPerChoice'].includes(props.name) ? props.name : 'rank'}
           score={props.rowScores[choice]}
+          slack={props.choiceSlack[choice]}
           handleCellChange={props.handleCellChange}
         />
       )}
@@ -42,6 +43,7 @@ Row.defaultProps = {
   rowData: {},
   rowScores: {},
   choicesPerName: {},
+  choiceSlack: {},
 }
 
 Row.propTypes = {
@@ -55,6 +57,7 @@ Row.propTypes = {
     ])
   ).isRequired,
   rowScores: React.PropTypes.objectOf(React.PropTypes.number),
+  choiceSlack: React.PropTypes.objectOf(React.PropTypes.number),
   choicesPerName: React.PropTypes.objectOf(React.PropTypes.number),
   handleCellChange: React.PropTypes.func.isRequired,
 }
