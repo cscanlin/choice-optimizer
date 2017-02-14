@@ -17,7 +17,7 @@ export const formatImportedCSV = (CSVString) => {
   const orderedNames = []
   const choiceRanks = {}
   const choicesPerName = {}
-  rows.slice(1).forEach(row => {
+  rows.slice(1).forEach((row) => {
     const name = row[0]
     orderedNames.push(name)
     choiceRanks[name] = zipToObj(orderedChoices, row.slice(1).map(rank => parseInt(rank)))

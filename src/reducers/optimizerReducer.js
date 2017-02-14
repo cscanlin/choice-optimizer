@@ -36,14 +36,14 @@ export default (state = defaultData, action) => {
     case types.ADD_CHOICE: {
       const choiceRanks = {}
       const newChoice = `choice_${String.fromCharCode(state.orderedChoices.length + 97)}`
-      Object.keys(state.choiceRanks).forEach(name =>
-        choiceRanks[name][newChoice] = 0
-      )
+      Object.keys(state.choiceRanks).forEach(name => {
+        choiceRanks[name] = Object.assign({ [newChoice]: 0 }, state.choiceRanks[name])
+      })
       return {
         ...state,
+        choiceRanks,
         orderedChoices: state.orderedChoices.concat([newChoice]),
-        choiceRanks: Object.assign(choiceRanks, state.choiceRanks),
-        maxPerChoice: Object.assign({ newChoice: 1 }, state.maxPerChoice),
+        maxPerChoice: Object.assign({ [newChoice]: 1 }, state.maxPerChoice),
       }
     }
 
