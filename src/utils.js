@@ -1,9 +1,10 @@
 export const renameKey = (obj, oldKey, newKey) => {
+  const newObj = {}
   if (oldKey !== newKey) {
-    obj[newKey] = obj[oldKey]
+    newObj[newKey] = obj[oldKey]
     delete obj[oldKey]
   }
-  return obj
+  return Object.assign(newObj, obj)
 }
 
 export const zipToObj = (ks, vs) => {
@@ -33,5 +34,6 @@ export const formatImportedCSV = (CSVString) => {
     choiceRanks,
     choicesPerName,
     maxPerChoice,
+    scores: {},
   }
 }

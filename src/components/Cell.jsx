@@ -37,7 +37,7 @@ class Cell extends Component {
           style={this.cellStyle()}
           type={inputType}
           defaultValue={this.props.cellContents}
-          onBlur={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
+          onChange={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
         />
       </td>
     )

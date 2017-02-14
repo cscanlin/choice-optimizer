@@ -8,12 +8,9 @@ import Row from '../components/Row'
 import Button from '../components/Button'
 import Options from '../components/Options'
 
-import defaultData from '../defaultData'
-
 class OptimizerApp extends Component {
   constructor(props) {
     super(props)
-    this.state = { ...defaultData }
     this.handleCellChange = this.handleCellChange.bind(this)
     this.formatDataForAPI = this.formatDataForAPI.bind(this)
   }
