@@ -35,7 +35,6 @@ class OptimizerApp extends Component {
       constraintBounds: Object.assign({}, this.props.maxPerChoice, this.props.choicesPerName),
       noRepeatChoices: this.props.noRepeatChoices,
     }
-    console.log(formattedData)
     this.props.actions.fetchScores(formattedData)
   }
 
@@ -109,14 +108,16 @@ class OptimizerApp extends Component {
 }
 
 OptimizerApp.propTypes = {
-  orderedNames: React.PropTypes.array.isRequired,
-  orderedChoices: React.PropTypes.array.isRequired,
-  choiceRanks: React.PropTypes.object.isRequired,
-  scores: React.PropTypes.object.isRequired,
-  maxPerChoice: React.PropTypes.object.isRequired,
-  choicesPerName: React.PropTypes.object.isRequired,
+  orderedNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  orderedChoices: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  choiceRanks: React.PropTypes.objectOf(
+      React.PropTypes.objectOf(React.PropTypes.number)
+  ).isRequired,
+  scores: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
+  maxPerChoice: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
+  choicesPerName: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
   noRepeatChoices: React.PropTypes.bool.isRequired,
-  actions: React.PropTypes.object.isRequired,
+  actions: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
 }
 
 function mapStateToProps(state) {
