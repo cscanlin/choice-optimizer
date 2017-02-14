@@ -100,6 +100,7 @@ export default (state = defaultData, action) => {
       return {
         ...state,
         scores: action.scores,
+        choiceSlack: action.choiceSlack,
         isFetching: false,
       }
 

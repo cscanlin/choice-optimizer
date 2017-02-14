@@ -38,9 +38,12 @@ def optimize_choice_data(data):
         bounds=variable_bounds,
         options={"disp": True},
     )
-    formatted_result = defaultdict(dict)
+    formatted_result = {
+        'scores': defaultdict(dict),
+        'choiceSlack': dict(zip(ordered_ub_variables, results.slack)),
+    }
     for (name, choice), score in zip(objective.keys(), results.x):
-        formatted_result[name][choice] = score
+        formatted_result['scores'][name][choice] = score
     return formatted_result
 
 if __name__ == '__main__':

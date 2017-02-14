@@ -24,7 +24,6 @@ const defaultData = {
     name_8: { choice_a: 5, choice_b: 4, choice_c: 2, choice_d: 1 },
     name_9: { choice_a: 3, choice_b: 2, choice_c: 1, choice_d: 5 },
   },
-  scores: {},
   maxPerChoice: {
     choice_a: 3,
     choice_b: 3,
@@ -42,6 +41,8 @@ const defaultData = {
     name_8: 1,
     name_9: 1,
   },
+  scores: {},
+  choiceSlack: {},
   noRepeatChoices: true,
   isFetching: false,
 }

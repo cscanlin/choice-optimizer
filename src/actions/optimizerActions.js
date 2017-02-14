@@ -49,9 +49,10 @@ export const requestScores = () => ({
   type: types.REQUEST_SCORES,
 })
 
-export const receiveScores = scores => ({
+export const receiveScores = data => ({
   type: types.RECEIVE_SCORES,
-  scores,
+  scores: data.scores,
+  choiceSlack: data.choiceSlack,
   receivedAt: Date.now(),
 })
 
@@ -63,8 +64,8 @@ export const fetchScores = (bodyData) => {
       body: JSON.stringify(bodyData),
     }).then(response =>
       response.json()
-    ).then(scores =>
-      dispatch(receiveScores(scores))
+    ).then(data =>
+      dispatch(receiveScores(data))
     )
   }
 }
