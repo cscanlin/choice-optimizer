@@ -9,15 +9,13 @@ import Button from '../components/Button'
 import Options from '../components/Options'
 
 import defaultData from '../defaultData'
-import { zipToObj } from '../utils'
 
 class OptimizerApp extends Component {
   constructor(props) {
     super(props)
     this.state = { ...defaultData }
     this.handleCellChange = this.handleCellChange.bind(this)
-    this.runOptimizer = this.runOptimizer.bind(this)
-    this.importFromCSV = this.importFromCSV.bind(this)
+    this.formatDataForAPI = this.formatDataForAPI.bind(this)
   }
 
   handleCellChange(e, cellType, cellID) {
@@ -31,26 +29,12 @@ class OptimizerApp extends Component {
     typeUpdateFunc[cellType](cellID, e.target.value)
   }
 
-  runOptimizer() {
-    const formattedData = {
+  formatDataForAPI() {
+    return {
       choiceRanks: this.props.choiceRanks,
       constraintBounds: Object.assign({}, this.props.maxPerChoice, this.props.choicesPerName),
       noRepeatChoices: this.props.noRepeatChoices,
     }
-    this.props.actions.fetchScores(formattedData)
-  }
-
-  importFromCSV(e) {
-    const reader = new FileReader()
-    reader.onload = (loadEvent) => {
-      const rows = loadEvent.target.result.trim().split('\n').map(row => row.split(','))
-      const headers = rows[0].slice(1)
-      const importedData = {}
-      rows.slice(1).forEach(row =>
-        importedData[row[0]] = zipToObj(headers, row.slice(1).map(rank => parseInt(rank)))
-      )
-    }
-    reader.readAsText(e.target.files[0])
   }
 
   render() {
@@ -59,8 +43,8 @@ class OptimizerApp extends Component {
         <Options
           noRepeatChoices={this.props.noRepeatChoices}
           updateNoRepeatChoices={this.props.actions.updateNoRepeatChoices}
-          runOptimizer={this.runOptimizer}
-          importFromCSV={this.importFromCSV}
+          runOptimizer={() => this.props.actions.fetchScores(this.formatDataForAPI())}
+          importFromCSV={this.props.actions.importFromCSV}
         />
         <table className='data-grid'>
           <thead>

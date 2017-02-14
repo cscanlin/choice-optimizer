@@ -1,5 +1,7 @@
 import * as types from './actionTypes'
 
+import { formatImportedCSV } from '../utils'
+
 export const addName = () => ({
   type: types.ADD_NAME,
 })
@@ -64,5 +66,22 @@ export const fetchScores = (bodyData) => {
     ).then(scores =>
       dispatch(receiveScores(scores))
     )
+  }
+}
+
+export const receiveImportedData = importedData => ({
+  type: types.RECEIVE_IMPORTED_DATA,
+  importedData,
+  receivedAt: Date.now(),
+})
+
+export const importFromCSV = (e) => {
+  const reader = new FileReader()
+  reader.readAsText(e.target.files[0])
+  return (dispatch) => {
+    reader.onload = (loadEvent) => {
+      const formattedData = formatImportedCSV(loadEvent.target.result)
+      dispatch(receiveImportedData(formattedData))
+    }
   }
 }

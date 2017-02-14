@@ -99,6 +99,9 @@ export default (state = defaultData, action) => {
         isFetching: false,
       }
 
+    case types.RECEIVE_IMPORTED_DATA:
+      return { ...state, ...action.importedData }
+
     default: {
       return state
     }
