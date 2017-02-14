@@ -5,3 +5,7 @@ export const renameKey = (obj, oldKey, newKey) => {
   }
   return obj
 }
+
+export const zipToObj = (ks, vs) => {
+  return ks.reduce((o, k, i) => { o[k] = vs[i]; return o }, {})
+}

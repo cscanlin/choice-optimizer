@@ -1,5 +1,18 @@
-.App {
+.OptimizerApp {
   padding: 10px;
+}
+
+.options-container {
+  margin-bottom: 10px
+}
+
+.choose-each-once-container {
+  display: inline-block;
+}
+
+.run-optimizer {
+  display: inline-block;
+  margin-left: 10px;
 }
 
 .data-grid {
@@ -42,10 +55,6 @@ tbody:after {
 
 .choicesPerName-cell {
   margin-left: 10px;
-}
-
-.run-optimizer {
-  margin-left: -200px;
 }
 
 .add-name {

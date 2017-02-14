@@ -9,6 +9,7 @@ import Button from '../components/Button'
 import Options from '../components/Options'
 
 import defaultData from '../defaultData'
+import { zipToObj } from '../utils'
 
 class OptimizerApp extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class OptimizerApp extends Component {
     this.state = { ...defaultData }
     this.handleCellChange = this.handleCellChange.bind(this)
     this.runOptimizer = this.runOptimizer.bind(this)
+    this.importFromCSV = this.importFromCSV.bind(this)
   }
 
   handleCellChange(e, cellType, cellID) {
@@ -38,9 +40,28 @@ class OptimizerApp extends Component {
     this.props.actions.fetchScores(formattedData)
   }
 
+  importFromCSV(e) {
+    const reader = new FileReader()
+    reader.onload = (loadEvent) => {
+      const rows = loadEvent.target.result.trim().split('\n').map(row => row.split(','))
+      const headers = rows[0].slice(1)
+      const importedData = {}
+      rows.slice(1).forEach(row =>
+        importedData[row[0]] = zipToObj(headers, row.slice(1).map(rank => parseInt(rank)))
+      )
+    }
+    reader.readAsText(e.target.files[0])
+  }
+
   render() {
     return (
       <div className='OptimizerApp'>
+        <Options
+          noRepeatChoices={this.props.noRepeatChoices}
+          updateNoRepeatChoices={this.props.actions.updateNoRepeatChoices}
+          runOptimizer={this.runOptimizer}
+          importFromCSV={this.importFromCSV}
+        />
         <table className='data-grid'>
           <thead>
             <Row
@@ -79,7 +100,6 @@ class OptimizerApp extends Component {
             />
           </tfoot>
         </table>
-
         <Button
           type='button'
           value='Add Choice'
@@ -88,19 +108,9 @@ class OptimizerApp extends Component {
         />
         <Button
           type='button'
-          value='Run Optimizer'
-          className='btn-primary run-optimizer'
-          onClick={this.runOptimizer}
-        />
-        <Button
-          type='button'
           value='Add Name'
           className='btn-primary add-name'
           onClick={this.props.actions.addName}
-        />
-        <Options
-          noRepeatChoices={this.props.noRepeatChoices}
-          updateNoRepeatChoices={this.props.actions.updateNoRepeatChoices}
         />
       </div>
     )
