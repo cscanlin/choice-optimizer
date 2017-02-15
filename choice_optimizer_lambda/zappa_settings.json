@@ -1,0 +1,6 @@
+{
+    "dev": {
+        "app_function": "lambda_optimizer.app",
+        "s3_bucket": "cscanlin-choice-optimizer"
+    }
+}

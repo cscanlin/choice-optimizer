@@ -1,0 +1,6 @@
+name: choice-optimizer-lambda
+dependencies:
+ - python=2.7
+ - flask
+ - scipy
+ - zappa
