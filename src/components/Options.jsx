@@ -42,6 +42,12 @@ function Options(props) {
             value={props.exportFormat.label}
           />
         </div>
+        <Button
+          type='button'
+          value='Export Results'
+          className='btn-primary export-scores'
+          onClick={props.exportScores}
+        />
       </div>
     </div>
   )
@@ -60,5 +66,6 @@ Options.propTypes = {
     label: React.PropTypes.string,
   }).isRequired,
   updateExportFormat: React.PropTypes.func.isRequired,
+  exportScores: React.PropTypes.func.isRequired,
 }
 module.exports = Options

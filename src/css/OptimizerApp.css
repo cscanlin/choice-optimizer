@@ -21,6 +21,14 @@
   margin-left: 10px;
 }
 
+.Dropdown-root {
+  width: 160px;
+}
+
+.Dropdown-control {
+  padding: 4px 40px 4px 8px;
+}
+
 .data-grid {
   display: inline-block;
   border-collapse: collapse;

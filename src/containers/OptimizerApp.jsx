@@ -8,6 +8,8 @@ import Row from '../components/Row'
 import Button from '../components/Button'
 import Options from '../components/Options'
 
+import { exportScores } from '../utils'
+
 class OptimizerApp extends Component {
   constructor(props) {
     super(props)
@@ -36,9 +38,9 @@ class OptimizerApp extends Component {
 
   render() {
     const exportFormatOptions = [
-      { value: 'asGrid', label: 'As Grid' },
-      { value: 'byName', label: 'By Name' },
-      { value: 'byChoice', label: 'By Choice' },
+      { value: 'asGrid', label: 'As Grid (csv)' },
+      { value: 'byName', label: 'By Name (json)' },
+      { value: 'byChoice', label: 'By Choice (json)' },
     ]
     return (
       <div className='OptimizerApp'>
@@ -50,6 +52,7 @@ class OptimizerApp extends Component {
           exportFormatOptions={exportFormatOptions}
           exportFormat={this.props.exportFormat}
           updateExportFormat={this.props.actions.updateExportFormat}
+          exportScores={() => exportScores(this.props.exportFormat.value, this.props)}
         />
         <table className='data-grid'>
           <thead>
