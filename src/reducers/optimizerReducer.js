@@ -107,6 +107,9 @@ export default (state = defaultData, action) => {
     case types.RECEIVE_IMPORTED_DATA:
       return { ...state, ...action.importedData }
 
+    case types.UPDATE_EXPORT_FORMAT:
+      return { ...state, exportFormat: action.newValue }
+
     default: {
       return state
     }

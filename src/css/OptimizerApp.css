@@ -6,11 +6,17 @@
   margin-bottom: 10px
 }
 
-.choose-each-once-container {
+.import-from-csv-container,
+.choose-each-once-container,
+.run-optimizer-container,
+.export-options-label {
   display: inline-block;
+  vertical-align: super;
+  margin-left: 10px;
 }
 
-.run-optimizer {
+.exporter-container,
+.export-options-dropdown-container {
   display: inline-block;
   margin-left: 10px;
 }
@@ -38,9 +44,23 @@ tbody:after {
   border-width: 1px;
 }
 
+.cell-contents-container {
+  margin-left: 1px;
+  height: 86%;
+}
+
 .cell-contents {
   height: 100%;
   padding-left: 5px;
+}
+
+.immutable-cell-contents {
+  font-size: larger;
+}
+
+.input-cell-contents {
+  border: none;
+  font-size: medium;
 }
 
 .spacing-cell {
@@ -60,4 +80,10 @@ tbody:after {
 .add-name {
   display: block;
   margin-top: 5px;
+}
+
+.slack-container {
+  display: inline-block;
+  margin-left: -55px;
+  font-size: x-small;
 }

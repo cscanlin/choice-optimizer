@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class Cell extends Component {
-  borderColor() {
+  cellColor() {
     if (this.props.score > 0) {
       return '#00FF00'
     } else if (this.props.cellType === 'maxPerChoice' && this.props.slack === 0) {
@@ -9,16 +9,12 @@ class Cell extends Component {
     } else {
       return null
     }
-    // const scoreColors = {
-    //   1: '#00FF00',
-    // }
-    // return scoreColors[this.props.score]
   }
 
   cellStyle() {
     return {
-      borderColor: this.borderColor(),
-      // borderWidth: this.props.score + 1,
+      borderColor: this.cellColor(),
+      borderStyle: this.cellColor() === null ? 'solid' : 'double',
     }
   }
 
@@ -30,6 +26,18 @@ class Cell extends Component {
     )
   }
 
+  displaySlack() {
+    if (this.props.cellType === 'maxPerChoice' && this.props.slack !== null) {
+      return (
+        <div style={{ color: this.cellColor() }} className='slack-container'>
+          ({this.props.slack} left)
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
+
   render() {
     const numericTypes = ['maxPerChoice', 'rank', 'choicesPerName']
     const inputType = numericTypes.includes(this.props.cellType) ? 'number' : 'text'
@@ -37,14 +45,16 @@ class Cell extends Component {
       return this.immutableCell()
     }
     return (
-      <td className={`cell input-cell ${this.props.cellType}-cell`}>
-        <input
-          className='cell-contents input-cell-contents'
-          style={this.cellStyle()}
-          type={inputType}
-          defaultValue={this.props.cellContents}
-          onChange={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
-        />
+      <td style={this.cellStyle()} className={`cell input-cell ${this.props.cellType}-cell`}>
+        <div className='cell-contents-container'>
+          <input
+            className='cell-contents input-cell-contents'
+            type={inputType}
+            defaultValue={this.props.cellContents}
+            onChange={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
+          />
+          {this.displaySlack()}
+        </div>
       </td>
     )
   }

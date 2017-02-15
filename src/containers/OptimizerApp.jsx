@@ -35,6 +35,11 @@ class OptimizerApp extends Component {
   }
 
   render() {
+    const exportFormatOptions = [
+      { value: 'asGrid', label: 'As Grid' },
+      { value: 'byName', label: 'By Name' },
+      { value: 'byChoice', label: 'By Choice' },
+    ]
     return (
       <div className='OptimizerApp'>
         <Options
@@ -42,6 +47,9 @@ class OptimizerApp extends Component {
           updateNoRepeatChoices={this.props.actions.updateNoRepeatChoices}
           runOptimizer={() => this.props.actions.fetchScores(this.formatDataForAPI())}
           importFromCSV={this.props.actions.importFromCSV}
+          exportFormatOptions={exportFormatOptions}
+          exportFormat={this.props.exportFormat}
+          updateExportFormat={this.props.actions.updateExportFormat}
         />
         <table className='data-grid'>
           <thead>
@@ -115,6 +123,10 @@ OptimizerApp.propTypes = {
   maxPerChoice: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
   choicesPerName: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
   noRepeatChoices: React.PropTypes.bool.isRequired,
+  exportFormat: React.PropTypes.shape({
+    value: React.PropTypes.string,
+    label: React.PropTypes.string,
+  }).isRequired,
   actions: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
 }
 
@@ -128,6 +140,7 @@ function mapStateToProps(state) {
     maxPerChoice: state.maxPerChoice,
     choicesPerName: state.choicesPerName,
     noRepeatChoices: state.noRepeatChoices,
+    exportFormat: state.exportFormat,
   }
 }
 

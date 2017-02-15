@@ -45,6 +45,7 @@ const defaultData = {
   choiceSlack: {},
   noRepeatChoices: true,
   isFetching: false,
+  exportFormat: { value: 'asGrid', label: 'As Grid' },
 }
 
 export default defaultData

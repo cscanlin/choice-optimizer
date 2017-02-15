@@ -86,3 +86,8 @@ export const importFromCSV = (e) => {
     }
   }
 }
+
+export const updateExportFormat = newValue => ({
+  type: types.UPDATE_EXPORT_FORMAT,
+  newValue,
+})

@@ -5,6 +5,7 @@ import OptimizerApp from './containers/OptimizerApp'
 import configureStore from './store/configureStore'
 import './css/index.css'
 import './css/OptimizerApp.css'
+import './css/reactDropdown.css'
 
 const store = configureStore()
 
