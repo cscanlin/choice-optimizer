@@ -15,6 +15,7 @@ class Cell extends Component {
     return {
       borderColor: this.cellColor(),
       borderStyle: this.cellColor() === null ? 'solid' : 'double',
+      borderWidth: this.props.score + 1,
     }
   }
 
