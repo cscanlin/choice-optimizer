@@ -52,7 +52,7 @@ class Cell extends Component {
             className='cell-contents input-cell-contents'
             type={inputType}
             defaultValue={this.props.cellContents}
-            onChange={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
+            onBlur={e => this.props.handleCellChange(e, this.props.cellType, this.props.cellID)}
           />
           {this.displaySlack()}
         </div>

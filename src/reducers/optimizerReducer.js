@@ -1,6 +1,6 @@
 import * as types from '../actions/actionTypes'
-import defaultData from '../defaultData'
 import { renameKey } from '../utils'
+import defaultData from '../defaultData.json'
 
 export default (state = defaultData, action) => {
   switch (action.type) {
@@ -43,7 +43,8 @@ export default (state = defaultData, action) => {
         ...state,
         choiceRanks,
         orderedChoices: state.orderedChoices.concat([newChoice]),
-        maxPerChoice: Object.assign({ [newChoice]: 1 }, state.maxPerChoice),
+        // TODO: change all state updates to this style if possible
+        maxPerChoice: { ...state.maxPerChoice, [newChoice]: 1 },
       }
     }
 
