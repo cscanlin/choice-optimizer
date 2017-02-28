@@ -1,6 +1,7 @@
 import * as types from './actionTypes'
 
 import { formatImportedCSV } from '../utils'
+import { OPTIMIZER_ENDPOINT } from '../constants/optimizerConstants'
 
 export const addName = () => ({
   type: types.ADD_NAME,
@@ -59,7 +60,7 @@ export const receiveScores = data => ({
 export const fetchScores = (bodyData) => {
   return (dispatch) => {
     dispatch(requestScores(bodyData))
-    return fetch('/optimize_choices', {
+    return fetch(OPTIMIZER_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(bodyData),
     }).then(response =>

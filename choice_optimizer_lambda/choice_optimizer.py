@@ -2,6 +2,8 @@ from collections import defaultdict, OrderedDict
 import csv
 from scipy.optimize import linprog
 
+import handlers
+
 def data_from_csv(file_name):
     with open(file_name) as csvfile:
         reader = list(csv.DictReader(csvfile))
@@ -36,7 +38,7 @@ def optimize_choice_data(data):
         A_eq=eq_equations,
         b_eq=[constraint_bounds.get(variable, 1) for variable in ordered_eq_variables],
         bounds=variable_bounds,
-        options={"disp": True},
+        options={"disp": False},
     )
     formatted_result = {
         'scores': defaultdict(dict),
@@ -47,12 +49,4 @@ def optimize_choice_data(data):
     return formatted_result
 
 if __name__ == '__main__':
-    print("""
-     user, a, b, c
-        w, 3, 6, 9
-        x, 5, 4, 1
-        y, 5, 1, 4
-        z, 4, 5, 3
-    """)
-    data = data_from_csv('test_data/test_data.csv')
-    print(optimize_choice_data(data))
+    handlers.invoking(optimize_choice_data)
