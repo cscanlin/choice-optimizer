@@ -1,5 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
 .OptimizerApp {
   padding: 10px;
+}
+
+.big-inline-container {
+  white-space: nowrap;
 }
 
 .options-container {
@@ -10,10 +20,21 @@
 .choose-each-once-container,
 .run-optimizer-container,
 .export-options-label,
-.loading-icon-container {
+.loading-icon-container,
+.export-scores {
   display: inline-block;
   vertical-align: super;
   margin-left: 10px;
+}
+
+.loading-icon-container,
+.loading-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.loading-icon {
+  margin-bottom: -5px;
 }
 
 .exporter-container,

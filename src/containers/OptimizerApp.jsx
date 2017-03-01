@@ -44,62 +44,64 @@ class OptimizerApp extends Component {
     ]
     return (
       <div className='OptimizerApp'>
-        <Options
-          noRepeatChoices={this.props.noRepeatChoices}
-          updateNoRepeatChoices={this.props.actions.updateNoRepeatChoices}
-          runOptimizer={() => this.props.actions.fetchScores(this.formatDataForAPI())}
-          importFromCSV={this.props.actions.importFromCSV}
-          exportFormatOptions={exportFormatOptions}
-          exportFormat={this.props.exportFormat}
-          updateExportFormat={this.props.actions.updateExportFormat}
-          exportScores={() => exportScores(this.props.exportFormat.value, this.props)}
-          isFetching={this.props.isFetching}
-        />
-        <table className='data-grid'>
-          <thead>
-            <Row
-              key='choice-row'
-              rowID='choice-row'
-              name='choices'
-              orderedChoices={this.props.orderedChoices}
-              rowData={this.props.orderedChoices.reduce((result, item) => {
-                result[item] = item; return result
-              }, {})}
-              handleCellChange={this.handleCellChange}
-            />
-          </thead>
-          <tbody>
-            {this.props.orderedNames.map(name =>
+        <div className='big-inline-container'>
+          <Options
+            noRepeatChoices={this.props.noRepeatChoices}
+            updateNoRepeatChoices={this.props.actions.updateNoRepeatChoices}
+            runOptimizer={() => this.props.actions.fetchScores(this.formatDataForAPI())}
+            importFromCSV={this.props.actions.importFromCSV}
+            exportFormatOptions={exportFormatOptions}
+            exportFormat={this.props.exportFormat}
+            updateExportFormat={this.props.actions.updateExportFormat}
+            exportScores={() => exportScores(this.props.exportFormat.value, this.props)}
+            isFetching={this.props.isFetching}
+          />
+          <table className='data-grid'>
+            <thead>
               <Row
-                key={`row-${name}`}
-                rowID={`row-${name} data-row`}
-                name={name}
+                key='choice-row'
+                rowID='choice-row'
+                name='choices'
                 orderedChoices={this.props.orderedChoices}
-                rowData={this.props.choiceRanks[name]}
-                rowScores={this.props.scores[name]}
-                choicesPerName={this.props.choicesPerName}
+                rowData={this.props.orderedChoices.reduce((result, item) => {
+                  result[item] = item; return result
+                }, {})}
                 handleCellChange={this.handleCellChange}
               />
-            )}
-          </tbody>
-          <tfoot>
-            <Row
-              key='maxPerChoice-row'
-              rowID='maxPerChoice-row'
-              name='maxPerChoice'
-              orderedChoices={this.props.orderedChoices}
-              rowData={this.props.maxPerChoice}
-              handleCellChange={this.handleCellChange}
-              choiceSlack={this.props.choiceSlack}
-            />
-          </tfoot>
-        </table>
-        <Button
-          type='button'
-          value='Add Choice'
-          className='btn-primary add-choice'
-          onClick={this.props.actions.addChoice}
-        />
+            </thead>
+            <tbody>
+              {this.props.orderedNames.map(name =>
+                <Row
+                  key={`row-${name}`}
+                  rowID={`row-${name} data-row`}
+                  name={name}
+                  orderedChoices={this.props.orderedChoices}
+                  rowData={this.props.choiceRanks[name]}
+                  rowScores={this.props.scores[name]}
+                  choicesPerName={this.props.choicesPerName}
+                  handleCellChange={this.handleCellChange}
+                />
+              )}
+            </tbody>
+            <tfoot>
+              <Row
+                key='maxPerChoice-row'
+                rowID='maxPerChoice-row'
+                name='maxPerChoice'
+                orderedChoices={this.props.orderedChoices}
+                rowData={this.props.maxPerChoice}
+                handleCellChange={this.handleCellChange}
+                choiceSlack={this.props.choiceSlack}
+              />
+            </tfoot>
+          </table>
+          <Button
+            type='button'
+            value='Add Choice'
+            className='btn-primary add-choice'
+            onClick={this.props.actions.addChoice}
+          />
+        </div>
         <Button
           type='button'
           value='Add Name'

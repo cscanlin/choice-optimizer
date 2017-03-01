@@ -1,7 +1,16 @@
 import React from 'react'
+import loadingIcon from '../loading-icon.gif'
 
 function LoadingIcon(props) {
-  return <span>{props.isFetching.toString()}</span>
+  const imageStyle = { display: props.isFetching ? 'inline-block' : 'none' }
+  return (
+    <img
+      src={loadingIcon}
+      className='loading-icon'
+      style={imageStyle}
+      alt='loading...'
+    />
+  )
 }
 
 LoadingIcon.propTypes = {
