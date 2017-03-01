@@ -21,23 +21,34 @@ body {
 .run-optimizer-container,
 .export-options-label,
 .loading-icon-container,
-.export-scores {
+.export-scores-container {
   display: inline-block;
   vertical-align: super;
-  margin-left: 10px;
+  margin-left: 25px;
+}
+
+.choose-each-once-checkbox-label {
+  margin-right: 10px;
+}
+.choose-each-once-checkbox {
+  display: inline-block;
 }
 
 .loading-icon-container,
 .loading-icon {
   width: 20px;
   height: 20px;
+  margin-left: 5px;
 }
 
 .loading-icon {
   margin-bottom: -5px;
 }
 
-.exporter-container,
+.exporter-container {
+  display: inline-block;
+}
+
 .export-options-dropdown-container {
   display: inline-block;
   margin-left: 10px;
@@ -97,7 +108,7 @@ tbody:after {
   width: 16px;
 }
 
-.add-choice {
+.add-choice-container {
   display: inline-block;
   vertical-align: top;
   margin-left: 15px;
@@ -107,7 +118,7 @@ tbody:after {
   margin-left: 10px;
 }
 
-.add-name {
+.add-name-container {
   display: block;
   margin-top: 5px;
 }

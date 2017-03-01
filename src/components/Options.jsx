@@ -1,23 +1,30 @@
 import React from 'react'
 import Dropdown from 'react-dropdown'
+import { Button } from 'react-bootstrap'
 
-import Button from '../components/Button'
 import LoadingIcon from '../components/LoadingIcon'
 
 function Options(props) {
   return (
     <div className='options-container'>
+
       <div className='import-from-csv-container'>
-        <input
-          id='import-from-csv'
-          type='file'
-          accept='.csv'
-          className='import-from-csv'
-          onChange={props.importFromCSV}
-        />
+        <label htmlFor='import-from-csv' className='btn btn-warning btn-file'>
+          <span>Import from CSV</span>
+          <input
+            id='import-from-csv'
+            type='file'
+            accept='.csv'
+            onChange={props.importFromCSV}
+            style={{ display: 'none' }}
+          />
+        </label>
       </div>
+
       <div className='choose-each-once-container'>
-        <label htmlFor='choose-each-once-checkbox'>No Repeat Picks:</label>
+        <label className='choose-each-once-checkbox-label' htmlFor='choose-each-once-checkbox'>
+          No Repeat Picks:
+        </label>
         <input
           id='choose-each-once-checkbox'
           type='checkbox'
@@ -26,17 +33,15 @@ function Options(props) {
           onChange={e => props.updateNoRepeatChoices(e.target.checked)}
         />
       </div>
+
       <div className='run-optimizer-container'>
-        <Button
-          type='button'
-          value='Run Optimizer'
-          className='btn-primary run-optimizer'
-          onClick={props.runOptimizer}
-        />
+        <Button bsStyle='success' onClick={props.runOptimizer} disabled={props.isFetching}>
+          Run Optimizer
+        </Button>
       </div>
-      <div className='loading-icon-container'>
-        <LoadingIcon isFetching={props.isFetching} />
-      </div>
+
+      <LoadingIcon isFetching={props.isFetching} />
+
       <div className='exporter-container'>
         <span className='export-options-label'>Export Format:</span>
         <div className='export-options-dropdown-container'>
@@ -46,13 +51,13 @@ function Options(props) {
             value={props.exportFormat.label}
           />
         </div>
-        <Button
-          type='button'
-          value='Export Results'
-          className='btn-primary export-scores'
-          onClick={props.exportScores}
-        />
+        <div className='export-scores-container'>
+          <Button bsStyle='primary' onClick={props.exportScores}>
+            Export Results
+          </Button>
+        </div>
       </div>
+
     </div>
   )
 }

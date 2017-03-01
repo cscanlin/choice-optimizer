@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Button } from 'react-bootstrap'
 
 import * as optimizerActions from '../actions/optimizerActions'
 
 import Row from '../components/Row'
-import Button from '../components/Button'
 import Options from '../components/Options'
 
 import { exportScores } from '../utils'
@@ -95,19 +95,17 @@ class OptimizerApp extends Component {
               />
             </tfoot>
           </table>
-          <Button
-            type='button'
-            value='Add Choice'
-            className='btn-primary add-choice'
-            onClick={this.props.actions.addChoice}
-          />
+          <div className='add-choice-container'>
+            <Button bsStyle='primary' onClick={this.props.actions.addChoice}>
+              Add Choice
+            </Button>
+          </div>
         </div>
-        <Button
-          type='button'
-          value='Add Name'
-          className='btn-primary add-name'
-          onClick={this.props.actions.addName}
-        />
+        <div className='add-name-container'>
+          <Button bsStyle='primary' onClick={this.props.actions.addName}>
+            Add Name
+          </Button>
+        </div>
       </div>
     )
   }

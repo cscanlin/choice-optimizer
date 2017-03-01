@@ -4,12 +4,14 @@ import loadingIcon from '../loading-icon.gif'
 function LoadingIcon(props) {
   const imageStyle = { display: props.isFetching ? 'inline-block' : 'none' }
   return (
-    <img
-      src={loadingIcon}
-      className='loading-icon'
-      style={imageStyle}
-      alt='loading...'
-    />
+    <div className='loading-icon-container'>
+      <img
+        src={loadingIcon}
+        className='loading-icon'
+        style={imageStyle}
+        alt='loading...'
+      />
+    </div>
   )
 }
 

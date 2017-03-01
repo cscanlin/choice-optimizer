@@ -19,6 +19,7 @@
   "dependencies": {
     "downloadjs": "^1.4.7",
     "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-dropdown": "^1.2.0",
     "react-redux": "^5.0.2",
