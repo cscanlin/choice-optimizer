@@ -42,5 +42,7 @@
   "choiceSlack": {},
   "noRepeatChoices": true,
   "isFetching": false,
-  "exportFormat": { "value": "asGrid", "label": "As Grid (csv)" }
+  "exportFormat": { "value": "asGrid", "label": "As Grid (csv)" },
+  "message": "",
+  "showMessage": true
 }

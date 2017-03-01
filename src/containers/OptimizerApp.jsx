@@ -7,6 +7,7 @@ import * as optimizerActions from '../actions/optimizerActions'
 
 import Row from '../components/Row'
 import Options from '../components/Options'
+import Message from '../components/Message'
 
 import { exportScores } from '../utils'
 
@@ -44,6 +45,7 @@ class OptimizerApp extends Component {
     ]
     return (
       <div className='OptimizerApp'>
+        <Message message={this.props.message} showMessage={this.props.showMessage}/>
         <div className='big-inline-container'>
           <Options
             noRepeatChoices={this.props.noRepeatChoices}
@@ -134,6 +136,8 @@ OptimizerApp.propTypes = {
     label: React.PropTypes.string,
   }).isRequired,
   isFetching: React.PropTypes.bool.isRequired,
+  message: React.PropTypes.string.isRequired,
+  showMessage: React.PropTypes.bool.isRequired,
   actions: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
 }
 
@@ -149,6 +153,8 @@ function mapStateToProps(state) {
     noRepeatChoices: state.noRepeatChoices,
     exportFormat: state.exportFormat,
     isFetching: state.isFetching,
+    message: state.message,
+    showMessage: state.showMessage,
   }
 }
 

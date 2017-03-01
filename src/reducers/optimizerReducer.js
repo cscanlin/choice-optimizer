@@ -103,6 +103,8 @@ export default (state = defaultData, action) => {
         scores: action.scores,
         choiceSlack: action.choiceSlack,
         isFetching: false,
+        message: action.message,
+        showMessage: !action.success,
       }
 
     case types.RECEIVE_IMPORTED_DATA:
