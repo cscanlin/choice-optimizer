@@ -19,14 +19,19 @@ def handler(f):
             output = f(data)
             status = 200
         except Exception:
-            output = {'message': traceback.format_exception(*sys.exc_info())}
+            output = {'message': ''.join(traceback.format_exception(*sys.exc_info()))}
             status = 400
         finally:
             return {
                 'statusCode': status,
-                'headers': {},
+                'headers': {'Access-Control-Allow-Origin': '*'},
                 'body': json.dumps(output),
             }
     return handle
 
 choice_optimizer_handler = handler(optimize_choice_data)
+
+if __name__ == '__main__':
+    with open('test_data/test_data.json') as f:
+        data = json.loads(f.read())
+        print(choice_optimizer_handler(data))

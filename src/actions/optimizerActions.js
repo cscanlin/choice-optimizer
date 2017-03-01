@@ -61,6 +61,7 @@ export const fetchScores = (bodyData) => {
   return (dispatch) => {
     dispatch(requestScores(bodyData))
     return fetch(OPTIMIZER_ENDPOINT, {
+      headers: { 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify(bodyData),
     }).then(response =>

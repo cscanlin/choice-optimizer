@@ -2,8 +2,6 @@ from collections import defaultdict, OrderedDict
 import csv
 from scipy.optimize import linprog
 
-import handlers
-
 def data_from_csv(file_name):
     with open(file_name) as csvfile:
         reader = list(csv.DictReader(csvfile))
@@ -49,4 +47,12 @@ def optimize_choice_data(data):
     return formatted_result
 
 if __name__ == '__main__':
-    handlers.invoking(optimize_choice_data)
+    print("""
+     user, a, b, c
+        w, 3, 6, 9
+        x, 5, 4, 1
+        y, 5, 1, 4
+        z, 4, 5, 3
+    """)
+    data = data_from_csv('test_data/test_data.csv')
+    print(optimize_choice_data(data))

@@ -1,5 +1,6 @@
 {
   "name": "choice-optimizer",
+  "homepage": "https://cscanlin.github.io/choice-optimizer",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
