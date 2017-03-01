@@ -12,15 +12,21 @@ for d, _, files in os.walk('lib'):
 
 from choice_optimizer import optimize_choice_data
 
-def handler(f):
+def handler(lambda_func):
     def handle(event, context=None):
         data = json.loads(event['body']) if 'body' in event.keys() else event
         try:
-            output = f(data)
-            status = 200
+            output = lambda_func(data)
+            if output['success']:
+                status = 200
+            else:
+                status = 400
         except Exception:
-            output = {'message': ''.join(traceback.format_exception(*sys.exc_info()))}
-            status = 400
+            output = {
+                'success': False,
+                'message': ''.join(traceback.format_exception(*sys.exc_info()))
+            }
+            status = 500
         finally:
             return {
                 'statusCode': status,
