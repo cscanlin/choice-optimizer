@@ -1,35 +1,32 @@
 import os
-import subprocess
-import json
 import sys
+import json
+import ctypes
+import traceback
 
-LIBS = os.path.join(os.getcwd(), 'lib')
+for d, _, files in os.walk('lib'):
+    for f in files:
+        if f.endswith('.a'):
+            continue
+        ctypes.cdll.LoadLibrary(os.path.join(d, f))
 
-def handler(filename):
+from choice_optimizer import optimize_choice_data
+
+def handler(f):
     def handle(event, context=None):
-        env = os.environ.copy()
-        env.update(LD_LIBRARY_PATH=LIBS)
-        proc = subprocess.Popen(
-            ('python', filename),
-            env=env,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT)
-        (stdout, _) = proc.communicate(input=json.dumps(event))
+        data = json.loads(event['body']) if 'body' in event.keys() else event
         try:
-            # return json.loads(stdout)
+            output = f(data)
+            status = 200
+        except Exception:
+            output = {'message': traceback.format_exception(*sys.exc_info())}
+            status = 400
+        finally:
             return {
-                'statusCode': 200,
+                'statusCode': status,
                 'headers': {},
-                'body': json.loads(stdout),
+                'body': json.dumps(output),
             }
-        except ValueError:
-            raise ValueError(stdout)
     return handle
 
-def invoking(f):
-    # output = f(json.load(sys.stdin))
-    output = f(json.loads(json.load(sys.stdin)['body']))
-    json.dump(output, sys.stdout)
-
-choice_optimizer = handler('choice_optimizer.py')
+choice_optimizer_handler = handler(optimize_choice_data)
