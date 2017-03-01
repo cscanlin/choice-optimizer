@@ -53,6 +53,7 @@ class OptimizerApp extends Component {
           exportFormat={this.props.exportFormat}
           updateExportFormat={this.props.actions.updateExportFormat}
           exportScores={() => exportScores(this.props.exportFormat.value, this.props)}
+          isFetching={this.props.isFetching}
         />
         <table className='data-grid'>
           <thead>
@@ -132,6 +133,7 @@ OptimizerApp.propTypes = {
     value: React.PropTypes.string,
     label: React.PropTypes.string,
   }).isRequired,
+  isFetching: React.PropTypes.bool.isRequired,
   actions: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
 }
 
@@ -146,6 +148,7 @@ function mapStateToProps(state) {
     choicesPerName: state.choicesPerName,
     noRepeatChoices: state.noRepeatChoices,
     exportFormat: state.exportFormat,
+    isFetching: state.isFetching,
   }
 }
 

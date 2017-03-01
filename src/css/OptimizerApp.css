@@ -9,7 +9,8 @@
 .import-from-csv-container,
 .choose-each-once-container,
 .run-optimizer-container,
-.export-options-label {
+.export-options-label,
+.loading-icon-container {
   display: inline-block;
   vertical-align: super;
   margin-left: 10px;

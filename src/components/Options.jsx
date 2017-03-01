@@ -2,6 +2,7 @@ import React from 'react'
 import Dropdown from 'react-dropdown'
 
 import Button from '../components/Button'
+import LoadingIcon from '../components/LoadingIcon'
 
 function Options(props) {
   return (
@@ -32,6 +33,9 @@ function Options(props) {
           className='btn-primary run-optimizer'
           onClick={props.runOptimizer}
         />
+      </div>
+      <div className='loading-icon-container'>
+        <LoadingIcon isFetching={props.isFetching} />
       </div>
       <div className='exporter-container'>
         <span className='export-options-label'>Export Format:</span>
@@ -67,5 +71,6 @@ Options.propTypes = {
   }).isRequired,
   updateExportFormat: React.PropTypes.func.isRequired,
   exportScores: React.PropTypes.func.isRequired,
+  isFetching: React.PropTypes.bool.isRequired,
 }
 module.exports = Options
