@@ -36,14 +36,17 @@ def optimize_choice_data(data):
         A_eq=eq_equations,
         b_eq=[constraint_bounds.get(variable, 1) for variable in ordered_eq_variables],
         bounds=variable_bounds,
-        options={"disp": False},
+        options={"disp": True},
     )
     formatted_result = {
-        'scores': defaultdict(dict),
-        'choiceSlack': dict(zip(ordered_ub_variables, results.slack)),
+        'success': results.success,
+        'message': results.message,
     }
-    for (name, choice), score in zip(objective.keys(), results.x):
-        formatted_result['scores'][name][choice] = score
+    if results.success:
+        formatted_result['scores'] = defaultdict(dict)
+        for (name, choice), score in zip(objective.keys(), results.x):
+            formatted_result['scores'][name][choice] = score
+        formatted_result['choiceSlack'] = dict(zip(ordered_ub_variables, results.slack))
     return formatted_result
 
 if __name__ == '__main__':
