@@ -121,7 +121,9 @@ OptimizerApp.propTypes = {
   choiceRanks: React.PropTypes.objectOf(
       React.PropTypes.objectOf(React.PropTypes.number)
   ).isRequired,
-  scores: React.PropTypes.objectOf(React.PropTypes.number),
+  scores: React.PropTypes.objectOf(
+      React.PropTypes.objectOf(React.PropTypes.number)
+  ).isRequired,
   choiceSlack: React.PropTypes.objectOf(React.PropTypes.number),
   maxPerChoice: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
   choicesPerName: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
