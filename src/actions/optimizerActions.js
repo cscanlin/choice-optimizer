@@ -52,11 +52,8 @@ export const requestScores = () => ({
 
 export const receiveScores = data => ({
   type: types.RECEIVE_SCORES,
-  scores: data.scores,
-  choiceSlack: data.choiceSlack,
-  message: data.message,
-  success: data.success,
   receivedAt: Date.now(),
+  ...data,
 })
 
 export const fetchScores = (bodyData) => {

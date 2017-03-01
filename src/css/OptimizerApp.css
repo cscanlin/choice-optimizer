@@ -8,6 +8,16 @@ body {
   padding: 10px;
 }
 
+.message-container {
+  border-radius: 5px;
+  width: 700px;
+  min-height: 25px;
+  text-align: center;
+  padding: 5px;
+  margin-left: 175px;
+  margin-bottom: 10px;
+}
+
 .big-inline-container {
   white-space: nowrap;
 }

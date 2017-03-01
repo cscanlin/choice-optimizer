@@ -44,5 +44,6 @@
   "isFetching": false,
   "exportFormat": { "value": "asGrid", "label": "As Grid (csv)" },
   "message": "",
-  "showMessage": true
+  "showMessage": false,
+  "messageType": null
 }

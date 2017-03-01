@@ -45,7 +45,7 @@ class OptimizerApp extends Component {
     ]
     return (
       <div className='OptimizerApp'>
-        <Message message={this.props.message} showMessage={this.props.showMessage}/>
+        <Message {...this.props} />
         <div className='big-inline-container'>
           <Options
             noRepeatChoices={this.props.noRepeatChoices}
@@ -116,6 +116,7 @@ class OptimizerApp extends Component {
 OptimizerApp.defaultProps = {
   scores: {},
   choiceSlack: {},
+  messageType: null,
 }
 
 OptimizerApp.propTypes = {
@@ -138,24 +139,12 @@ OptimizerApp.propTypes = {
   isFetching: React.PropTypes.bool.isRequired,
   message: React.PropTypes.string.isRequired,
   showMessage: React.PropTypes.bool.isRequired,
+  messageType: React.PropTypes.string,
   actions: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
 }
 
 function mapStateToProps(state) {
-  return {
-    orderedNames: state.orderedNames,
-    orderedChoices: state.orderedChoices,
-    choiceRanks: state.choiceRanks,
-    scores: state.scores,
-    choiceSlack: state.choiceSlack,
-    maxPerChoice: state.maxPerChoice,
-    choicesPerName: state.choicesPerName,
-    noRepeatChoices: state.noRepeatChoices,
-    exportFormat: state.exportFormat,
-    isFetching: state.isFetching,
-    message: state.message,
-    showMessage: state.showMessage,
-  }
+  return { ...state }
 }
 
 function mapDispatchToProps(dispatch) {

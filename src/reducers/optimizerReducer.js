@@ -1,6 +1,7 @@
 import * as types from '../actions/actionTypes'
 import { renameKey } from '../utils'
 import defaultData from '../defaultData.json'
+import { SERVER_ERROR_MESSAGE } from '../constants/optimizerConstants'
 
 export default (state = defaultData, action) => {
   switch (action.type) {
@@ -43,7 +44,7 @@ export default (state = defaultData, action) => {
         ...state,
         choiceRanks,
         orderedChoices: state.orderedChoices.concat([newChoice]),
-        // TODO: change all state updates to this style if possible
+        // TODO: change all Object.assign updates to below style if possible
         maxPerChoice: { ...state.maxPerChoice, [newChoice]: 1 },
       }
     }
@@ -103,8 +104,9 @@ export default (state = defaultData, action) => {
         scores: action.scores,
         choiceSlack: action.choiceSlack,
         isFetching: false,
-        message: action.message,
+        message: action.status === 500 ? SERVER_ERROR_MESSAGE : action.message,
         showMessage: !action.success,
+        messageType: action.success ? null : 'error',
       }
 
     case types.RECEIVE_IMPORTED_DATA:
