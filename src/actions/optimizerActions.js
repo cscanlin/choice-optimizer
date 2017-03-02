@@ -62,19 +62,17 @@ export const tooManyCellsError = () => ({
   success: false,
 })
 
-export const fetchScores = (bodyData) => {
-  return (dispatch) => {
-    dispatch(requestScores(bodyData))
-    return fetch(OPTIMIZER_ENDPOINT, {
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-      body: JSON.stringify(bodyData),
-    }).then(response =>
-      response.json()
-    ).then(data =>
-      dispatch(receiveScores(data))
-    )
-  }
+export const fetchScores = bodyData => (dispatch) => {
+  dispatch(requestScores(bodyData))
+  return fetch(OPTIMIZER_ENDPOINT, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    body: JSON.stringify(bodyData),
+  }).then(response =>
+    response.json()
+  ).then(data =>
+    dispatch(receiveScores(data))
+  )
 }
 
 export const receiveImportedData = importedData => ({

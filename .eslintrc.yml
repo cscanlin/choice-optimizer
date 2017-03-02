@@ -8,6 +8,11 @@ rules:
   semi: [2, "never"]
   radix: ["error", "as-needed"]
   jsx-quotes: ["error", "prefer-single"]
+  no-else-return: "off"
+
+globals:
+  FileReader: true
+  fetch: true
 
 parserOptions:
   ecmaVersion: 6

@@ -11,8 +11,6 @@ import Message from '../components/Message'
 
 import { MAX_CELLS } from '../constants/optimizerConstants'
 
-import { exportData } from '../utils'
-
 class OptimizerApp extends Component {
   constructor(props) {
     super(props)
@@ -55,7 +53,11 @@ class OptimizerApp extends Component {
     ]
     return (
       <div className='OptimizerApp'>
-        <Message {...this.props} />
+        <Message
+          message={this.props.message}
+          showMessage={this.props.showMessage}
+          messageType={this.props.messageType}
+        />
         <div className='big-inline-container'>
           <Options
             noRepeatChoices={this.props.noRepeatChoices}
