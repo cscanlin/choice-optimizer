@@ -19,10 +19,20 @@ class Cell extends Component {
     }
   }
 
+  immutableCellContents() {
+    if (this.props.cellType === 'name' && this.props.cellContents === 'choices') {
+      return 'names ↓ / choices →'
+    } else {
+      return this.props.cellContents
+    }
+  }
+
   immutableCell() {
     return (
       <td className={`cell immutable-cell ${this.props.cellType}-cell`}>
-        <span className='cell-contents immutable-cell-contents'>{this.props.cellContents}</span>
+        <span className='cell-contents immutable-cell-contents'>
+          {this.immutableCellContents()}
+        </span>
       </td>
     )
   }
