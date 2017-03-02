@@ -21,7 +21,7 @@ class Cell extends Component {
 
   immutableCellContents() {
     if (this.props.cellType === 'name' && this.props.cellContents === 'choices') {
-      return 'names ↓ / choices →'
+      return 'Names ↓ / Choices →'
     } else {
       return this.props.cellContents
     }

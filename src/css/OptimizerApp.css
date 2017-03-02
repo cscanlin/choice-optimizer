@@ -4,6 +4,14 @@ body {
   font-family: sans-serif;
 }
 
+.about-container {
+  padding-left: 10px;
+}
+
+.application-information {
+  max-width: 900px;
+}
+
 .OptimizerApp {
   padding: 10px;
 }

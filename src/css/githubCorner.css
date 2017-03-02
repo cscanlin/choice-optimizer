@@ -1,14 +1,14 @@
 .master-container {
   min-width: 100%;
   display: inline-block;
-  padding-right: 80px;
+  padding-right: 10px;
 }
 
 .github-svg {
   fill: #151513;
   color: #fff;
   float: right;
-  margin-right: -80px;
+  margin-right: -10px;
   border: 0;
 }
 
