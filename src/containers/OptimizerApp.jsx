@@ -32,7 +32,8 @@ class OptimizerApp extends Component {
   formatDataForAPI() {
     return {
       choiceRanks: this.props.choiceRanks,
-      constraintBounds: Object.assign({}, this.props.maxPerChoice, this.props.choicesPerName),
+      maxPerChoice: this.props.maxPerChoice,
+      choicesPerName: this.props.choicesPerName,
       noRepeatChoices: this.props.noRepeatChoices,
     }
   }

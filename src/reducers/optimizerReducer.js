@@ -104,7 +104,7 @@ export default (state = defaultData, action) => {
         scores: action.scores,
         choiceSlack: action.choiceSlack,
         isFetching: false,
-        message: action.status === 500 ? SERVER_ERROR_MESSAGE : action.message,
+        message: action.statusCode === 500 ? SERVER_ERROR_MESSAGE : action.message,
         showMessage: !action.success,
         messageType: action.success ? null : 'error',
       }

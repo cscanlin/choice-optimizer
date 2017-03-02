@@ -1,5 +1,6 @@
 from collections import defaultdict, OrderedDict
 import csv
+from numpy import inf
 from scipy.optimize import linprog
 
 def data_from_csv(file_name):
@@ -27,16 +28,17 @@ def optimize_choice_data(data):
     objective, ub_constraints, eq_constraints = format_data(data)
     ordered_ub_variables, ub_equations = zip(*ub_constraints.items())
     ordered_eq_variables, eq_equations = zip(*eq_constraints.items())
-    constraint_bounds = data.get('constraintBounds', {})
-    variable_bounds = [(0, 1) for _ in objective] if data.get('noRepeatChoices', None) else None
+    ub_bounds = data.get('maxPerChoice', {})
+    eq_bounds = data.get('choicesPerName', {})
+    variable_bounds = [(0, 1) for _ in objective] if data.get('noRepeatChoices', True) else None
     results = linprog(
         c=list(objective.values()),
         A_ub=ub_equations,
-        b_ub=[constraint_bounds.get(variable, 1) for variable in ordered_ub_variables],
+        b_ub=[ub_bounds.get(variable, 3) for variable in ordered_ub_variables],
         A_eq=eq_equations,
-        b_eq=[constraint_bounds.get(variable, 1) for variable in ordered_eq_variables],
+        b_eq=[eq_bounds.get(variable, 1) for variable in ordered_eq_variables],
         bounds=variable_bounds,
-        options={"disp": True},
+        options={'maxiter': inf, 'disp': True},
     )
     formatted_result = {
         'success': results.success,
@@ -50,12 +52,12 @@ def optimize_choice_data(data):
     return formatted_result
 
 if __name__ == '__main__':
-    print("""
+    print('''
      user, a, b, c
         w, 3, 6, 9
         x, 5, 4, 1
         y, 5, 1, 4
         z, 4, 5, 3
-    """)
+    ''')
     data = data_from_csv('test_data/test_data.csv')
     print(optimize_choice_data(data))

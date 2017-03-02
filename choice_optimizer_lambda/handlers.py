@@ -16,22 +16,23 @@ def handler(lambda_func):
     def handle(event, context=None):
         data = json.loads(event['body']) if 'body' in event.keys() else event
         try:
-            output = lambda_func(data)
-            if output['success']:
+            result = lambda_func(data)
+            if result['success']:
                 status = 200
             else:
                 status = 422
         except Exception:
-            output = {
+            result = {
                 'success': False,
                 'message': ''.join(traceback.format_exception(*sys.exc_info()))
             }
             status = 500
         finally:
+            result['statusCode'] = status
             return {
                 'statusCode': status,
                 'headers': {'Access-Control-Allow-Origin': '*'},
-                'body': json.dumps(output),
+                'body': json.dumps(result),
             }
     return handle
 

@@ -1,34 +1,27 @@
 {
   "choiceRanks": {
-    "w": {
-      "a": 3,
-      "b": 6,
-      "c": 9
-    },
-    "x": {
-      "a": 5,
-      "b": 4,
-      "c": 1
-    },
-    "y": {
-      "a": 5,
-      "b": 1,
-      "c": 4
-    },
-    "z": {
-      "a": 4,
-      "b": 5,
-      "c": 3
-    }
+    "name_1": { "choice_a": 5, "choice_b": 1, "choice_c": 2, "choice_d": 2 },
+    "name_2": { "choice_a": 2, "choice_b": 5, "choice_c": 4, "choice_d": 3 },
+    "name_3": { "choice_a": 3, "choice_b": 2, "choice_c": 5, "choice_d": 3 },
+    "name_4": { "choice_a": 4, "choice_b": 5, "choice_c": 3, "choice_d": 1 },
+    "name_5": { "choice_a": 2, "choice_b": 5, "choice_c": 3, "choice_d": 2 },
+    "name_6": { "choice_a": 1, "choice_b": 5, "choice_c": 1, "choice_d": 1 },
+    "name_7": { "choice_a": 5, "choice_b": 3, "choice_c": 1, "choice_d": 2 },
+    "name_8": { "choice_a": 5, "choice_b": 4, "choice_c": 2, "choice_d": 1 },
+    "name_9": { "choice_a": 3, "choice_b": 2, "choice_c": 1, "choice_d": 5 }
   },
-  "constraintBounds": {
-    "a": 3,
-    "b": 3,
-    "c": 3,
-    "w": 2,
-    "x": 2,
-    "y": 2,
-    "z": 2
+  "choicesPerName": {
+    "name_1": 1,
+    "name_2": 1,
+    "name_3": 1,
+    "name_4": 1,
+    "name_5": 1,
+    "name_6": 1,
+    "name_7": 1,
+    "name_8": 1,
+    "name_9": 1
   },
-  "noRepeatChoices": true
+  "maxPerChoice": {
+    "choice_a": 3, "choice_b": 3, "choice_c": 3, "choice_d": 3
+  }
 }

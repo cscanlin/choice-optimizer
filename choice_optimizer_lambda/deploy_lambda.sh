@@ -2,7 +2,7 @@ THIS_DIR=`dirname $0`
 
 deploy () {
     cp $THIS_DIR/choice_optimizer_deps.zip $THIS_DIR/choice_optimizer_latest.zip
-    zip $THIS_DIR/choice_optimizer_latest.zip $THIS_DIR/handlers.py $THIS_DIR/choice_optimizer.py
+    zip $THIS_DIR/choice_optimizer_latest.zip $THIS_DIR/handlers.py $THIS_DIR/choice_optimizer.py -j
     echo "zipped!"
     aws s3 cp $THIS_DIR/choice_optimizer_latest.zip s3://cscanlin-choice-optimizer/
     echo "uploaded!"
