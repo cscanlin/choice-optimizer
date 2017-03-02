@@ -1,6 +1,5 @@
 from datetime import datetime
 import random
-from pprint import pprint
 from string import ascii_lowercase
 
 from choice_optimizer import optimize_choice_data
@@ -26,4 +25,11 @@ def timing_test(num_names=100, num_choices=5):
     return data
 
 if __name__ == '__main__':
-    timing_test(num_names=1000, num_choices=5)
+    timing_test(num_names=10, num_choices=5)  # 2 milliseconds
+    timing_test(num_names=100, num_choices=5)  # 1.5 seconds
+    timing_test(num_names=100, num_choices=10)  # 6.5 seconds
+    timing_test(num_names=200, num_choices=5)  # 7.5 seconds
+    timing_test(num_names=500, num_choices=5)  # 1:45 minutes
+    timing_test(num_names=500, num_choices=10)  # 13 minutes
+    timing_test(num_names=1000, num_choices=5)  # 15 minutes
+    timing_test(num_names=1000, num_choices=10)  # 2 hours?
