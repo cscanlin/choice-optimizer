@@ -1,8 +1,10 @@
+THIS_DIR=`dirname $0`
+
 deploy () {
-    cp choice_optimizer_deps.zip choice_optimizer_latest.zip
-    zip choice_optimizer_latest.zip handlers.py choice_optimizer.py
+    cp $THIS_DIR/choice_optimizer_deps.zip $THIS_DIR/choice_optimizer_latest.zip
+    zip $THIS_DIR/choice_optimizer_latest.zip $THIS_DIR/handlers.py $THIS_DIR/choice_optimizer.py
     echo "zipped!"
-    aws s3 cp choice_optimizer_latest.zip s3://cscanlin-choice-optimizer/
+    aws s3 cp $THIS_DIR/choice_optimizer_latest.zip s3://cscanlin-choice-optimizer/
     echo "uploaded!"
     aws lambda update-function-code \
       --function-name choice-optimizer \
