@@ -1,6 +1,6 @@
 import * as types from './actionTypes'
 
-import { formatImportedCSV } from '../utils'
+import { formatImportedCSV, formatImportedJSON } from '../utils'
 import { OPTIMIZER_ENDPOINT } from '../constants/optimizerConstants'
 
 export const addName = () => ({
@@ -56,6 +56,12 @@ export const receiveScores = data => ({
   ...data,
 })
 
+export const tooManyCellsError = () => ({
+  type: types.TOO_MANY_CELLS_ERROR,
+  message: 'Too many cells; Must have less than 1,200 cells',
+  success: false,
+})
+
 export const fetchScores = (bodyData) => {
   return (dispatch) => {
     dispatch(requestScores(bodyData))
@@ -77,12 +83,28 @@ export const receiveImportedData = importedData => ({
   receivedAt: Date.now(),
 })
 
-export const importFromCSV = (e) => {
+export const clearData = () => ({
+  type: types.CLEAR_DATA,
+})
+
+export const importDataFile = (e) => {
+  let formattedData = {}
   const reader = new FileReader()
   reader.readAsText(e.target.files[0])
+  const fileMime = e.target.files[0].type
   return (dispatch) => {
+    dispatch(clearData())
     reader.onload = (loadEvent) => {
-      const formattedData = formatImportedCSV(loadEvent.target.result)
+      switch (fileMime) {
+        case 'text/csv':
+          formattedData = formatImportedCSV(loadEvent.target.result)
+          break
+        case 'application/json':
+          formattedData = JSON.parse(loadEvent.target.result)
+          break
+        default:
+          formattedData = {}
+      }
       dispatch(receiveImportedData(formattedData))
     }
   }

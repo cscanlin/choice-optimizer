@@ -8,14 +8,14 @@ function Options(props) {
   return (
     <div className='options-container'>
 
-      <div className='import-from-csv-container'>
-        <label htmlFor='import-from-csv' className='btn btn-warning btn-file'>
-          <span>Import from CSV</span>
+      <div className='importer-container'>
+        <label htmlFor='importer-input' className='btn btn-warning btn-file'>
+          <span>Import Data</span>
           <input
-            id='import-from-csv'
+            id='importer-input'
             type='file'
-            accept='.csv'
-            onChange={props.importFromCSV}
+            accept='text/csv,application/json'
+            onChange={props.importDataFile}
             style={{ display: 'none' }}
           />
         </label>
@@ -52,7 +52,7 @@ function Options(props) {
           />
         </div>
         <div className='export-scores-container'>
-          <Button bsStyle='primary' onClick={props.exportScores}>
+          <Button bsStyle='primary' onClick={props.exportDate}>
             Export Results
           </Button>
         </div>
@@ -66,7 +66,7 @@ Options.propTypes = {
   noRepeatChoices: React.PropTypes.bool.isRequired,
   updateNoRepeatChoices: React.PropTypes.func.isRequired,
   runOptimizer: React.PropTypes.func.isRequired,
-  importFromCSV: React.PropTypes.func.isRequired,
+  importDataFile: React.PropTypes.func.isRequired,
   exportFormatOptions: React.PropTypes.arrayOf(
     React.PropTypes.objectOf(React.PropTypes.string)
   ).isRequired,
@@ -75,7 +75,7 @@ Options.propTypes = {
     label: React.PropTypes.string,
   }).isRequired,
   updateExportFormat: React.PropTypes.func.isRequired,
-  exportScores: React.PropTypes.func.isRequired,
+  exportDate: React.PropTypes.func.isRequired,
   isFetching: React.PropTypes.bool.isRequired,
 }
 module.exports = Options

@@ -1,5 +1,9 @@
 import download from 'downloadjs'
 
+export const prettyJSON = (obj) => {
+  return JSON.stringify(obj, null, 4)
+}
+
 export const renameKey = (obj, oldKey, newKey) => {
   const newObj = {}
   if (oldKey !== newKey) {
@@ -47,7 +51,7 @@ export const asGrid = (state) => {
       return state.scores[name][choice]
     })).join()
   })
-  return [[headers].concat(dataRows).join('\n'), 'text/csv']
+  return download([headers].concat(dataRows).join('\n'), 'optimization_scores.csv', 'text/csv')
 }
 
 export const byName = (state) => {
@@ -62,7 +66,7 @@ export const byName = (state) => {
       }
     })
   })
-  return [JSON.stringify(formattedbyName, null, 4), 'application/json']
+  return download(prettyJSON(formattedbyName), 'optimization_scores.json', 'application/json')
 }
 
 export const byChoice = (state) => {
@@ -77,16 +81,26 @@ export const byChoice = (state) => {
       }
     })
   })
-  return [JSON.stringify(formattedbyChoice, null, 4), 'application/json']
+  return download(prettyJSON(formattedbyChoice), 'optimization_scores.json', 'application/json')
 }
 
-export const exportScores = (exportFormat, state) => {
+export const exportInputData = (state) => {
+  const formattedInputData = {
+    orderedNames: state.orderedNames,
+    orderedChoices: state.orderedChoices,
+    choiceRanks: state.choiceRanks,
+    choicesPerName: state.choicesPerName,
+    maxPerChoice: state.maxPerChoice,
+  }
+  return download(prettyJSON(formattedInputData), 'choice_optimizer_input.json', 'application/json')
+}
+
+export const exportDate = (exportFormat, state) => {
   const exportFormatters = {
     asGrid,
     byName,
     byChoice,
+    exportInputData,
   }
-  const [formattedScores, mimeType] = exportFormatters[exportFormat](state)
-  const fileExtension = mimeType.split('/')[1]
-  download(formattedScores, `optimization_scores.${fileExtension}`, mimeType)
+  return exportFormatters[exportFormat](state)
 }

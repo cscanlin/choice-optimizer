@@ -109,12 +109,34 @@ export default (state = defaultData, action) => {
         messageType: action.success ? null : 'error',
       }
 
+    case types.TOO_MANY_CELLS_ERROR:
+      return {
+        ...state,
+        message: action.message,
+        showMessage: true,
+        messageType: 'error',
+      }
+
     case types.RECEIVE_IMPORTED_DATA:
-      return { ...state, ...action.importedData }
+      return {
+        ...state,
+        ...action.importedData,
+      }
 
     case types.UPDATE_EXPORT_FORMAT:
       return { ...state, exportFormat: action.newValue }
 
+    case types.CLEAR_DATA:
+      return {
+        ...state,
+        orderedNames: [],
+        orderedChoices: [],
+        choiceRanks: {},
+        choicesPerName: {},
+        maxPerChoice: {},
+        scores: {},
+        choiceSlack: {},
+      }
     default: {
       return state
     }

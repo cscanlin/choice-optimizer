@@ -9,13 +9,15 @@ import Row from '../components/Row'
 import Options from '../components/Options'
 import Message from '../components/Message'
 
-import { exportScores } from '../utils'
+import { MAX_CELLS } from '../constants/optimizerConstants'
+
+import { exportDate } from '../utils'
 
 class OptimizerApp extends Component {
   constructor(props) {
     super(props)
     this.handleCellChange = this.handleCellChange.bind(this)
-    this.formatDataForAPI = this.formatDataForAPI.bind(this)
+    this.prepareFetch = this.prepareFetch.bind(this)
   }
 
   handleCellChange(e, cellType, cellID) {
@@ -29,12 +31,18 @@ class OptimizerApp extends Component {
     typeUpdateFunc[cellType](cellID, e.target.value)
   }
 
-  formatDataForAPI() {
-    return {
-      choiceRanks: this.props.choiceRanks,
-      maxPerChoice: this.props.maxPerChoice,
-      choicesPerName: this.props.choicesPerName,
-      noRepeatChoices: this.props.noRepeatChoices,
+  prepareFetch() {
+    const numCells = this.props.orderedNames.length * this.props.orderedChoices.length
+    if (numCells <= MAX_CELLS) {
+      const formattedData = {
+        choiceRanks: this.props.choiceRanks,
+        maxPerChoice: this.props.maxPerChoice,
+        choicesPerName: this.props.choicesPerName,
+        noRepeatChoices: this.props.noRepeatChoices,
+      }
+      return this.props.actions.fetchScores(formattedData)
+    } else {
+      return this.props.actions.tooManyCellsError()
     }
   }
 
@@ -43,6 +51,7 @@ class OptimizerApp extends Component {
       { value: 'asGrid', label: 'As Grid (csv)' },
       { value: 'byName', label: 'By Name (json)' },
       { value: 'byChoice', label: 'By Choice (json)' },
+      { value: 'exportInputData', label: 'Export Input Data (json)' },
     ]
     return (
       <div className='OptimizerApp'>
@@ -51,12 +60,12 @@ class OptimizerApp extends Component {
           <Options
             noRepeatChoices={this.props.noRepeatChoices}
             updateNoRepeatChoices={this.props.actions.updateNoRepeatChoices}
-            runOptimizer={() => this.props.actions.fetchScores(this.formatDataForAPI())}
-            importFromCSV={this.props.actions.importFromCSV}
+            runOptimizer={this.prepareFetch}
+            importDataFile={this.props.actions.importDataFile}
             exportFormatOptions={exportFormatOptions}
             exportFormat={this.props.exportFormat}
             updateExportFormat={this.props.actions.updateExportFormat}
-            exportScores={() => exportScores(this.props.exportFormat.value, this.props)}
+            exportDate={() => exportDate(this.props.exportFormat.value, this.props)}
             isFetching={this.props.isFetching}
           />
           <table className='data-grid'>
