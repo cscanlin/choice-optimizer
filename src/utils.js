@@ -94,13 +94,3 @@ export const exportInputData = (state) => {
   }
   return download(prettyJSON(formattedInputData), 'choice_optimizer_input.json', 'application/json')
 }
-
-export const exportDate = (exportFormat, state) => {
-  const exportFormatters = {
-    asGrid,
-    byName,
-    byChoice,
-    exportInputData,
-  }
-  return exportFormatters[exportFormat](state)
-}

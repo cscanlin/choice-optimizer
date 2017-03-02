@@ -1,6 +1,6 @@
 import * as types from './actionTypes'
 
-import { formatImportedCSV, formatImportedJSON } from '../utils'
+import { formatImportedCSV, asGrid, byName, byChoice, exportInputData } from '../utils'
 import { OPTIMIZER_ENDPOINT } from '../constants/optimizerConstants'
 
 export const addName = () => ({
@@ -114,3 +114,23 @@ export const updateExportFormat = newValue => ({
   type: types.UPDATE_EXPORT_FORMAT,
   newValue,
 })
+
+export const exportData = (state) => {
+  const exportFormatters = {
+    asGrid,
+    byName,
+    byChoice,
+    exportInputData,
+  }
+  if (Object.keys(state.scores).length === 0 || state.exportFormat.value === 'exportInputData') {
+    return {
+      type: types.CANT_EXPORT_ERROR,
+      message: 'Cannot export scores without running optimizer',
+      success: false,
+    }
+  }
+  exportFormatters[state.exportFormat.value](state)
+  return {
+    type: null,
+  }
+}

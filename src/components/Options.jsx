@@ -52,7 +52,7 @@ function Options(props) {
           />
         </div>
         <div className='export-scores-container'>
-          <Button bsStyle='primary' onClick={props.exportDate}>
+          <Button bsStyle='primary' onClick={props.exportData}>
             Export Results
           </Button>
         </div>
@@ -75,7 +75,7 @@ Options.propTypes = {
     label: React.PropTypes.string,
   }).isRequired,
   updateExportFormat: React.PropTypes.func.isRequired,
-  exportDate: React.PropTypes.func.isRequired,
+  exportData: React.PropTypes.func.isRequired,
   isFetching: React.PropTypes.bool.isRequired,
 }
 module.exports = Options

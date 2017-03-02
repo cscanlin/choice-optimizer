@@ -11,7 +11,7 @@ import Message from '../components/Message'
 
 import { MAX_CELLS } from '../constants/optimizerConstants'
 
-import { exportDate } from '../utils'
+import { exportData } from '../utils'
 
 class OptimizerApp extends Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class OptimizerApp extends Component {
             exportFormatOptions={exportFormatOptions}
             exportFormat={this.props.exportFormat}
             updateExportFormat={this.props.actions.updateExportFormat}
-            exportDate={() => exportDate(this.props.exportFormat.value, this.props)}
+            exportData={() => this.props.actions.exportData(this.props)}
             isFetching={this.props.isFetching}
           />
           <table className='data-grid'>

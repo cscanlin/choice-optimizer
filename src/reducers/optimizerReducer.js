@@ -117,6 +117,14 @@ export default (state = defaultData, action) => {
         messageType: 'error',
       }
 
+    case types.CANT_EXPORT_ERROR:
+      return {
+        ...state,
+        message: action.message,
+        showMessage: true,
+        messageType: 'error',
+      }
+
     case types.RECEIVE_IMPORTED_DATA:
       return {
         ...state,
