@@ -20,7 +20,7 @@ def handler(lambda_func):
             if output['success']:
                 status = 200
             else:
-                status = 400
+                status = 422
         except Exception:
             output = {
                 'success': False,
