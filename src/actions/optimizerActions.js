@@ -120,7 +120,7 @@ export const exportData = (state) => {
     byChoice,
     exportInputData,
   }
-  if (Object.keys(state.scores).length === 0 || state.exportFormat.value === 'exportInputData') {
+  if (Object.keys(state.scores).length === 0 && state.exportFormat.value !== 'exportInputData') {
     return {
       type: types.CANT_EXPORT_ERROR,
       message: 'Cannot export scores without running optimizer',
